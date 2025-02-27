@@ -1,0 +1,82 @@
+/* Full-screen container with gradient background */
+.screenContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to bottom, #11998e, #38ef7d);
+}
+
+/* Form container with shadow and rounded corners */
+.formContainer {
+    max-width: 400px;
+    width: 90%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Form layout */
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Input field group */
+.inputGroup {
+    margin-bottom: 15px;
+}
+
+/* Input container with flex layout */
+.inputContainer {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 10px;
+}
+
+/* Input styling */
+.input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    width: 100%;
+}
+
+/* Icon styling */
+.icon {
+    padding: 10px;
+    font-size: 18px;
+    color: #11998e;
+    cursor: pointer;
+}
+
+/* Error message styling */
+.error {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+/* Submit button styling */
+.button {
+    background-color: #11998e;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+/* Heading styling */
+.heading {
+    margin-bottom: 20px;
+    color: #11998e;
+}
