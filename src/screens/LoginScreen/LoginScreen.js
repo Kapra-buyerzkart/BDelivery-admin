@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons
+import { FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
 import { doc, getDoc } from 'firebase/firestore';
-import './LoginScreen.css'; // Import the CSS file
+import './LoginScreen.css';
 import { useNavigate } from 'react-router-dom';
 import { db } from "../../firebase/firebaseConfig";
 
@@ -24,14 +24,14 @@ const LoginScreen = ({ onLogin }) => {
             return;
         }
 
-        setError(''); // Clear any existing errors
+        setError('');
 
         try {
             const adminDoc = await getDoc(doc(db, 'admin', email));
             if (adminDoc.exists()) {
                 const adminData = adminDoc.data();
                 if (adminData.password === password) {
-                    console.log("???????")
+                    console.log("Login Successful");
                     onLogin();
                 } else {
                     setError('Incorrect password.');
@@ -46,42 +46,43 @@ const LoginScreen = ({ onLogin }) => {
     };
 
     return (
-        <div className="screenContainer"> {/* Full-screen container with gradient background */}
-            <div className="formContainer">
-                <h2 className="heading">Login</h2> {/* Center the Login text */}
-                <form
-                    onSubmit={handleSubmit}
-                    className="form">
-                    {/* Email Input */}
-                    <div className="inputGroup">
-                        <div className="inputContainer">
+        <div className="login-screenContainer">
+            {/* BDELIVERY Header */}
+            <header className="login-header">
+                <h1>BDELIVERY</h1>
+            </header>
+
+            <div className="login-formContainer">
+                <h2 className="login-heading">Login</h2>
+                <form onSubmit={handleSubmit} className="login-form">
+                    <div className="login-inputGroup">
+                        <div className="login-inputContainer">
                             <input
                                 type="email"
                                 id="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="input"
+                                className="login-input"
                                 placeholder="Enter your email"
                             />
-                            <FaEnvelope className="icon" />
+                            <FaEnvelope className="login-icon" />
                         </div>
                     </div>
 
-                    {/* Password Input */}
-                    <div className="inputGroup">
-                        <div className="inputContainer">
+                    <div className="login-inputGroup">
+                        <div className="login-inputContainer">
                             <input
                                 type={showPassword ? "text" : "password"}
                                 id="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="input"
+                                className="login-input"
                                 placeholder="Enter your password"
                             />
                             <span
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="icon"
-                                role="button"
+                                className="login-icon"
+                                role="login-button"
                                 aria-label="Toggle Password Visibility"
                             >
                                 {showPassword ? <FaEye /> : <FaEyeSlash />}
@@ -89,10 +90,9 @@ const LoginScreen = ({ onLogin }) => {
                         </div>
                     </div>
 
-                    {/* Error Message */}
-                    {error && <p className="error">{error}</p>}
+                    {error && <p className="login-error">{error}</p>}
 
-                    <button type="submit" className="button">
+                    <button type="submit" className="login-button">
                         Login
                     </button>
                 </form>

@@ -1,71 +1,97 @@
 /* Full-screen container with gradient background */
-.screenContainer {
+.login-screenContainer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to bottom, #11998e, #38ef7d);
+    background-color: #11998e;
+    padding: 20px;
+    /* Added padding for better mobile spacing */
+    box-sizing: border-box;
+}
+
+/* Header Styling */
+.login-header {
+    margin-bottom: 20px;
+}
+
+.login-header h1 {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 /* Form container with shadow and rounded corners */
-.formContainer {
+.login-formContainer {
     max-width: 400px;
-    width: 90%;
+    width: 100%;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    box-sizing: border-box;
 }
 
 /* Form layout */
-.form {
+.login-form {
     display: flex;
     flex-direction: column;
 }
 
 /* Input field group */
-.inputGroup {
+.login-inputGroup {
     margin-bottom: 15px;
 }
 
 /* Input container with flex layout */
-.inputContainer {
+.login-inputContainer {
     display: flex;
     align-items: center;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 0 10px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+.login-inputContainer:focus-within {
+    border-color: #11998e;
+    /* Highlight border on focus */
 }
 
 /* Input styling */
-.input {
+.login-input {
     flex: 1;
     padding: 10px;
     border: none;
     border-radius: 4px;
     outline: none;
     width: 100%;
+    background-color: transparent;
 }
 
 /* Icon styling */
-.icon {
+.login-icon {
     padding: 10px;
     font-size: 18px;
-    color: #11998e;
+    color: #003366;
     cursor: pointer;
 }
 
 /* Error message styling */
-.error {
+.login-error {
     color: red;
     font-size: 14px;
     margin-bottom: 10px;
 }
 
 /* Submit button styling */
-.button {
-    background-color: #11998e;
+.login-button {
+    background-color: #003366;
     color: #fff;
     padding: 10px 15px;
     border: none;
@@ -73,10 +99,64 @@
     cursor: pointer;
     font-size: 16px;
     width: 100%;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #004c99;
 }
 
 /* Heading styling */
-.heading {
+.login-heading {
     margin-bottom: 20px;
-    color: #11998e;
+    color: #003366;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .login-header h1 {
+        font-size: 28px;
+    }
+
+    .login-formContainer {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .login-input {
+        padding: 8px;
+    }
+
+    .login-button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .login-icon {
+        font-size: 16px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-header h1 {
+        font-size: 24px;
+    }
+
+    .login-formContainer {
+        padding: 10px;
+    }
+
+    .login-button {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .login-inputContainer {
+        padding: 0 8px;
+    }
+
+    .login-icon {
+        padding: 6px;
+    }
 }

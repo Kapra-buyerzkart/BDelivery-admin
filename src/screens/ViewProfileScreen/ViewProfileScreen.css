@@ -1,0 +1,261 @@
+/* Container */
+.viewprofile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #11998e;
+}
+
+/* Profile Card */
+.viewprofile-profile-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    transition: transform 0.3s ease;
+}
+
+/* .profile-card:hover {
+    transform: scale(1.02);
+} */
+
+.viewprofile-title {
+    text-align: center;
+    font-size: 1.75rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Form Fields */
+.viewprofile-field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.viewprofile-label {
+    font-weight: bold;
+    flex: 1;
+    color: #333;
+}
+
+.viewprofile-input-or-value {
+    flex: 2;
+}
+
+.viewprofile-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.viewprofile-input:disabled {
+    background: #f5f5f5;
+}
+
+.viewprofile-value {
+    display: block;
+    padding: 0.5rem;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Button Container */
+.viewprofile-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Buttons */
+.viewprofile-button {
+    flex: 1;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.viewprofile-primary {
+    background: #228B22;
+    color: white;
+}
+
+.viewprofile-warning {
+    background: #e9cb4d;
+    color: #000000;
+}
+
+.viewprofile-warning:hover {
+    background: #dab001;
+    color: #000000;
+}
+
+.viewprofile-primary:hover {
+    background: #1a6e1a;
+}
+
+.viewprofile-danger {
+    background: #ea3636;
+    color: white;
+}
+
+.viewprofile-danger:hover {
+    background: #c82333;
+}
+
+.viewprofile-button:hover {
+    transform: translateY(-2px);
+}
+
+/* Modal Overlay */
+.viewprofile-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Modal Container */
+.viewprofile-modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    animation: slideDown 0.4s ease;
+    position: relative;
+}
+
+/* Modal Title */
+.viewprofile-modal-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.viewprofile-success {
+    color: #228B22;
+}
+
+/* Modal Message */
+.viewprofile-modal-message {
+    color: #555;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* Modal Actions Container */
+.viewprofile-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Modal Buttons */
+.viewprofile-modal-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.viewprofile-modal-button:hover {
+    transform: translateY(-2px);
+}
+
+.viewprofile-confirm {
+    background-color: #11998e;
+    color: white;
+}
+
+.viewprofile-confirm:hover {
+    background-color: #0e7f74;
+}
+
+.viewprofile-cancel {
+    background-color: #f44336;
+    color: white;
+}
+
+.viewprofile-cancel:hover {
+    background-color: #d32f2f;
+}
+
+/* Close Button for Alert Modal */
+.viewprofile-modal-button.close {
+    background-color: #888;
+    color: white;
+}
+
+.viewprofile-modal-button.close:hover {
+    background-color: #666;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .viewprofile-container {
+        padding: 1rem;
+    }
+
+    .viewprofile-profile-card {
+        padding: 1.5rem;
+        max-width: 100%;
+    }
+
+    .viewprofile-button-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .viewprofile-button {
+        width: 100%;
+    }
+
+    .viewprofile-modal {
+        max-width: 90%;
+    }
+}

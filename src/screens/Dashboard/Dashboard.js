@@ -1,42 +1,87 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
+import AgentsComponent from "../../components/AgentsComponent/AgentsComponent";
+import { db } from "../../firebase/firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
+import { ClipLoader } from "react-spinners";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
     const [activeSection, setActiveSection] = useState("Agents");
+    const [screen, setScreen] = useState("dashboard");
+    const [agentsData, setAgentsData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const sections = ["Agents", "Tasks", "Reports", "Geofence", "Wallet", "API Keys"];
+
+    useEffect(() => {
+        const fetchAgentsData = async () => {
+            try {
+                const agentsCollection = collection(db, "deliveryAgents");
+                const querySnapshot = await getDocs(agentsCollection);
+
+                const agents = querySnapshot.docs.map((doc) => {
+                    const data = doc.data() || {};
+                    return {
+                        id: data.id || "Unknown",
+                        phoneNumber: data.mobile,
+                        name: data.name || "Unnamed Picker",
+                        password: data.password,
+                        storeName: data.storeName,
+                        type: data.type,
+                        completedOrders: data.completedOrders,
+                        completedOrdersCount: data.completedOrders.length,
+                    };
+                });
+
+                setAgentsData(agents);
+            } catch (error) {
+                console.error("Error fetching agents data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAgentsData();
+    }, []);
+
+    const handleLogout = () => {
+        props.onLogout();
+    };
 
     return (
         <div className="dashboard-container">
             {/* Header */}
             <header className="dashboard-header">
                 <h1 className="dashboard-heading">Dashboard</h1>
-                <button className="logout-button">Logout</button>
+                <button onClick={handleLogout} className="logout-button">Logout</button>
             </header>
 
-            <div className="dashboard-body">
-                {/* Sidebar */}
-                <aside className="sidebar">
-                    <ul>
-                        {sections.map((section) => (
-                            <li key={section}>
-                                <button
-                                    className={activeSection === section ? "active" : ""}
-                                    onClick={() => setActiveSection(section)}
-                                >
-                                    {section}
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </aside>
+            {loading ? (
+                // Loader while data is loading
+                <div className="dashboard-loader-container">
+                    <ClipLoader color="#11998e" size={60} />
+                </div>
+            ) : (
+                <div className="dashboard-body">
+                    {/* Sidebar */}
+                    <aside className="dashboard-sidebar">
+                        <ul>
+                            {sections.map((section) => (
+                                <li key={section}>
+                                    <button
+                                        className={activeSection === section ? "active" : ""}
+                                        onClick={() => setActiveSection(section)}
+                                    >
+                                        {section}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </aside>
 
-                {/* Main Content */}
-                <main className="content">
-                    <h2>{activeSection}</h2>
-                    <p>Content for {activeSection} section will be displayed here.</p>
-                </main>
-            </div>
+                    <AgentsComponent agentsData={agentsData} activeSection={activeSection} props={props} />
+                </div>
+            )}
         </div>
     );
 };
