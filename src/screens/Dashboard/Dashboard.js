@@ -13,6 +13,8 @@ const Dashboard = (props) => {
 
     const sections = ["Agents", "Tasks", "Reports", "Geofence", "Wallet", "API Keys"];
 
+    console.log("API Key:", process.env.REACT_APP_FIREBASE_API_KEY_DEV);
+
     useEffect(() => {
         const fetchAgentsData = async () => {
             try {
