@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import AgentsComponent from "../../components/AgentsComponent/AgentsComponent";
 import { db } from "../../firebase/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
 
 const Dashboard = (props) => {
@@ -10,10 +10,12 @@ const Dashboard = (props) => {
     const [screen, setScreen] = useState("dashboard");
     const [agentsData, setAgentsData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [storeNames, setStoreNames] = useState([]);
+    const [types, setTypes] = useState([]);
 
     const sections = ["Agents", "Tasks", "Reports", "Geofence", "Wallet", "API Keys"];
 
-    console.log("API Key:", process.env.REACT_APP_FIREBASE_API_KEY_DEV);
+    // console.log("API Key:", process.env.REACT_APP_FIREBASE_API_KEY_DEV);
 
     useEffect(() => {
         const fetchAgentsData = async () => {
@@ -44,6 +46,39 @@ const Dashboard = (props) => {
         };
 
         fetchAgentsData();
+    }, []);
+
+    useEffect(() => {
+        // Fetch store names from Firestore
+        const fetchStoreNames = async () => {
+            try {
+                // console.log("1111")
+                const storeNamesDocRef = doc(db, 'storeNames', 'storeNames');
+                const storeNamesDoc = await getDoc(storeNamesDocRef);
+                if (storeNamesDoc.exists()) {
+                    setStoreNames(storeNamesDoc.data().storeNames);
+                }
+            } catch (error) {
+                console.error('Error fetching store names:', error);
+            }
+        };
+
+        // Fetch types from Firestore
+        const fetchTypes = async () => {
+            try {
+                // console.log("222")
+                const typesDocRef = doc(db, 'types', 'types');
+                const typesDoc = await getDoc(typesDocRef);
+                if (typesDoc.exists()) {
+                    setTypes(typesDoc.data().types);
+                }
+            } catch (error) {
+                console.error('Error fetching types:', error);
+            }
+        };
+
+        fetchStoreNames();
+        fetchTypes();
     }, []);
 
     const handleLogout = () => {
@@ -81,7 +116,13 @@ const Dashboard = (props) => {
                         </ul>
                     </aside>
 
-                    <AgentsComponent agentsData={agentsData} activeSection={activeSection} props={props} />
+                    <AgentsComponent
+                        agentsData={agentsData}
+                        activeSection={activeSection}
+                        props={props}
+                        storeNames={storeNames}
+                        types={types}
+                    />
                 </div>
             )}
         </div>

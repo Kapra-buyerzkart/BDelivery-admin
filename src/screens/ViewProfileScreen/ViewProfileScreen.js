@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/firebaseConfig';
 import { doc, setDoc, deleteDoc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -7,16 +7,52 @@ import './ViewProfileScreen.css';
 const ViewProfileScreen = () => {
     const location = useLocation();
     const [isEditing, setIsEditing] = useState(false);
-    const [editData, setEditData] = useState(location.state || {});
+    const [editData, setEditData] = useState(location.state.agent || {});
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [header, setHeader] = useState('');
+    const [storeNames, setStoreNames] = useState(location.state.storeNames || []);
+    const [types, setTypes] = useState(location.state.types || []);
+    const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
+
+    // useEffect(() => {
+    //     // Fetch store names from Firestore
+    //     const fetchStoreNames = async () => {
+    //         try {
+    //             console.log("1111")
+    //             const storeNamesDocRef = doc(db, 'storeNames', 'storeNames');
+    //             const storeNamesDoc = await getDoc(storeNamesDocRef);
+    //             if (storeNamesDoc.exists()) {
+    //                 setStoreNames(storeNamesDoc.data().storeNames);
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching store names:', error);
+    //         }
+    //     };
+
+    //     // Fetch types from Firestore
+    //     const fetchTypes = async () => {
+    //         try {
+    //             // console.log("222")
+    //             const typesDocRef = doc(db, 'types', 'types');
+    //             const typesDoc = await getDoc(typesDocRef);
+    //             if (typesDoc.exists()) {
+    //                 setTypes(typesDoc.data().types);
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching types:', error);
+    //         }
+    //     };
+
+    //     fetchStoreNames();
+    //     fetchTypes();
+    // }, []);
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
-        setEditData(location.state || {});
+        setEditData(location.state.agent || {});
     };
 
     const handleInputChange = (e) => {
@@ -46,15 +82,15 @@ const ViewProfileScreen = () => {
             return;
         }
 
-        const oldMobile = location.state?.phoneNumber;
-        const oldId = location.state?.id;
+        const oldMobile = location.state?.agent?.phoneNumber;
+        const oldId = location.state?.agent?.id;
 
         try {
             // Check if mobile number already exists
             if (oldMobile !== phoneNumber) {
                 const mobileExists = await checkMobileExists(phoneNumber);
                 if (mobileExists) {
-                    setHeader('Alert')
+                    setHeader('Alert');
                     setModalMessage('This mobile number already exists. Please use a different number.');
                     setIsModalOpen(true);
                     return;
@@ -64,7 +100,7 @@ const ViewProfileScreen = () => {
             if (oldId !== id) {
                 const idExists = await checkIdExists(id);
                 if (idExists) {
-                    setHeader('Alert')
+                    setHeader('Alert');
                     setModalMessage('This Id already exists. Please use a different Id.');
                     setIsModalOpen(true);
                     return;
@@ -87,20 +123,21 @@ const ViewProfileScreen = () => {
                 await deleteDoc(doc(db, 'deliveryAgents', oldId));
                 await setDoc(doc(db, 'deliveryAgents', id), updatedFields);
             }
-            setHeader("Success")
+            setHeader("Success");
             setModalMessage('Profile updated successfully!');
             setIsModalOpen(true);
             setIsEditing(false);
+            setSuccess(true)
         } catch (error) {
             console.error('Error updating profile:', error);
-            setHeader("Error")
+            setHeader("Error");
             setModalMessage('Failed to update profile. Please try again.');
             setIsModalOpen(true);
         }
     };
 
     const handleDelete = async () => {
-        const id = location.state?.id;
+        const id = location.state?.agent?.id;
 
         if (!id) {
             console.error('id is missing.');
@@ -120,8 +157,17 @@ const ViewProfileScreen = () => {
         }
     };
 
+    const onSuccess = () => {
+        navigate('/dashboard')
+    }
+
+    const onModalClose = () => {
+        setIsModalOpen(false)
+    }
+
     return (
         <div className="viewprofile-container">
+            {/* {console.log("/////", success)} */}
             <div className="viewprofile-profile-card">
                 <h2 className="viewprofile-title">Profile Details</h2>
 
@@ -170,39 +216,46 @@ const ViewProfileScreen = () => {
                 <div className="viewprofile-field">
                     <label className="viewprofile-label">Store Name:</label>
                     <div className="viewprofile-input-or-value">
-                        <input
-                            type="text"
+                        <select
                             name="storeName"
                             value={editData.storeName || ''}
                             onChange={handleInputChange}
-                            className="viewprofile-input"
+                            className="viewprofile-dropdown"
                             disabled={!isEditing}
-                        />
+                        >
+                            <option value="">Select Store</option>
+                            {storeNames.map((store, index) => (
+                                <option key={index} value={store}>{store}</option>
+                            ))}
+                        </select>
                     </div>
                 </div>
 
                 <div className="viewprofile-field">
                     <label className="viewprofile-label">Type:</label>
                     <div className="viewprofile-input-or-value">
-                        <input
-                            type="text"
+                        <select
                             name="type"
                             value={editData.type || ''}
                             onChange={handleInputChange}
-                            className="viewprofile-input"
+                            className="viewprofile-dropdown"
                             disabled={!isEditing}
-                        />
+                        >
+                            <option value="">Select Type</option>
+                            {types.map((type, index) => (
+                                <option key={index} value={type}>{type}</option>
+                            ))}
+                        </select>
                     </div>
                 </div>
 
                 <div className="viewprofile-field">
-                    <label className="viewprofile-label">completed Orders:</label>
+                    <label className="viewprofile-label">Completed Orders:</label>
                     <div className="viewprofile-input-or-value">
                         <input
                             type="number"
-                            name="type"
-                            value={editData.completedOrdersCount || ''}
-                            // onChange={handleInputChange}
+                            name="completedOrdersCount"
+                            value={editData.completedOrdersCount || 0}
                             className="viewprofile-input"
                             disabled={true}
                         />
@@ -227,10 +280,12 @@ const ViewProfileScreen = () => {
             {isModalOpen && (
                 <div className="viewprofile-modal-overlay">
                     <div className="viewprofile-modal">
-                        <h2 className={header == "Success" ? "viewprofile-modal-title viewprofile-success" : "viewprofile-modal-title"}>{header}</h2>
+                        <h2 className={header === "Success" ? "viewprofile-modal-title viewprofile-success" : "viewprofile-modal-title"}>{header}</h2>
                         <p className="viewprofile-modal-message">{modalMessage}</p>
                         <div className="viewprofile-modal-actions">
-                            <button className="viewprofile-modal-button close" onClick={() => setIsModalOpen(false)}>Close</button>
+                            <button className="viewprofile-modal-button close"
+                                onClick={!success ? onModalClose : onSuccess}
+                            >Close</button>
                         </div>
                     </div>
                 </div>

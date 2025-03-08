@@ -19,14 +19,14 @@ const AgentsComponent = (props) => {
     const navigate = useNavigate();
 
     const onViewProfile = (agent) => {
-        navigate('./view-profile', { state: agent })
+        navigate('./view-profile', { state: { agent, storeNames: props.storeNames, types: props.types } })
     }
 
     const onAddAgent = () => {
         navigate('./add-agent')
     }
 
-    console.log('mmmmm', props.agentsData)
+    // console.log('mmmmm', props.agentsData)
 
     return (
         < main className="agentscomponent-content" >
