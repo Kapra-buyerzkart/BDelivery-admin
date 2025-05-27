@@ -262,6 +262,32 @@ const ViewProfileScreen = () => {
                     </div>
                 </div>
 
+                <div className="viewprofile-field">
+                    <label className="viewprofile-label">Distance Covered:</label>
+                    <div className="viewprofile-input-or-value">
+                        <input
+                            type="number"
+                            name="completedOrdersCount"
+                            value={editData.distanceCovered || 0}
+                            className="viewprofile-input"
+                            disabled={true}
+                        />
+                    </div>
+                </div>
+
+                <div className="viewprofile-field">
+                    <label className="viewprofile-label">Total Earnings:</label>
+                    <div className="viewprofile-input-or-value">
+                        <input
+                            type="number"
+                            name="completedOrdersCount"
+                            value={editData.distanceCovered * 2 || 0}
+                            className="viewprofile-input"
+                            disabled={true}
+                        />
+                    </div>
+                </div>
+
                 <div className="viewprofile-button-container">
                     {isEditing ? (
                         <>

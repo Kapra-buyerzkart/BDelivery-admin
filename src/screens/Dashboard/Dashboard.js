@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
-import AgentsComponent from "../../components/AgentsComponent/AgentsComponent";
 import { db } from "../../firebase/firebaseConfig";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
+import SectionComponent from "../../components/SectionComponent/SectionComponent";
 
 const Dashboard = (props) => {
     const [activeSection, setActiveSection] = useState("Agents");
@@ -13,7 +13,72 @@ const Dashboard = (props) => {
     const [storeNames, setStoreNames] = useState([]);
     const [types, setTypes] = useState([]);
 
-    const sections = ["Agents", "Tasks", "Reports", "Geofence", "Wallet", "API Keys"];
+    const sections = ["Agents", "Tasks", "Reports"];
+    const tasksData = [
+        {
+            amount: 250,
+            customerName: "Customer Two",
+            deliveryAddress: {
+                addressLineOne: "Address Line One",
+                addressLineTwo: "Address Line Two",
+                addressLineThree: "Palarivattom",
+                latitude: "10.002803",
+                longitude: "76.307631",
+                pincode: "682025"
+            },
+            deliveryCompleted: false,
+            id: "1748330349014",
+            microStoreName: "Microstore 01, Vennala",
+            mobile: "1111111114",
+            pickupAddress: {
+                addressLineOne: "2nd floor, Nandhanam Tower",
+                addressLineTwo: "Kaniyapilly Rd",
+                addressLineThree: "Chakkaraparambu, Vennala",
+                latitude: "9.991581023428584",
+                longitude: "76.31693806117408",
+                pincode: "682028"
+            },
+            pickupCompleted: false,
+            storeId: "2222233333",
+            taskNo: "ORD1996141893",
+            type: "cod",
+            status: "Pending",
+            date: "13 May, 2025",
+            time: "5:30 pm"
+        },
+        {
+            amount: 250,
+            customerName: "Customer Two",
+            deliveryAddress: {
+                addressLineOne: "Address Line One",
+                addressLineTwo: "Address Line Two",
+                addressLineThree: "Palarivattom",
+                latitude: "10.002803",
+                longitude: "76.307631",
+                pincode: "682025"
+            },
+            deliveryCompleted: false,
+            id: "1748330349015",
+            microStoreName: "Microstore 01, Vennala",
+            mobile: "1111111114",
+            pickupAddress: {
+                addressLineOne: "2nd floor, Nandhanam Tower",
+                addressLineTwo: "Kaniyapilly Rd",
+                addressLineThree: "Chakkaraparambu, Vennala",
+                latitude: "9.991581023428584",
+                longitude: "76.31693806117408",
+                pincode: "682028"
+            },
+            pickupCompleted: false,
+            storeId: "2222233333",
+            taskNo: "ORD1996141894",
+            type: "cod",
+            status: "Pending",
+            date: "13 May, 2025",
+            time: "6:30 pm"
+        },
+
+    ]
 
     // console.log("API Key:", process.env.REACT_APP_FIREBASE_API_KEY_DEV);
 
@@ -25,6 +90,14 @@ const Dashboard = (props) => {
 
                 const agents = querySnapshot.docs.map((doc) => {
                     const data = doc.data() || {};
+
+                    const completedOrders = data.completedOrders || [];
+
+                    // Calculate total distance covered
+                    const totalDistanceCovered = completedOrders.reduce((sum, order) => {
+                        return sum + (order.kilometers || 0);
+                    }, 0);
+
                     return {
                         id: data.id || "Unknown",
                         phoneNumber: data.mobile,
@@ -34,6 +107,8 @@ const Dashboard = (props) => {
                         type: data.type,
                         completedOrders: data.completedOrders,
                         completedOrdersCount: data.completedOrders.length,
+                        distanceCovered: totalDistanceCovered,
+                        isActive: data.isActive
                     };
                 });
 
@@ -116,12 +191,13 @@ const Dashboard = (props) => {
                         </ul>
                     </aside>
 
-                    <AgentsComponent
+                    <SectionComponent
                         agentsData={agentsData}
                         activeSection={activeSection}
                         props={props}
                         storeNames={storeNames}
                         types={types}
+                        tasksData={tasksData}
                     />
                 </div>
             )}

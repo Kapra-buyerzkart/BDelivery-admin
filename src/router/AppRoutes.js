@@ -4,6 +4,9 @@ import LoginScreen from '../screens/LoginScreen/LoginScreen';
 import Dashboard from '../screens/Dashboard/Dashboard';
 import ViewProfileScreen from '../screens/ViewProfileScreen/ViewProfileScreen';
 import AddAgentScreen from '../screens/AddAgentScreen/AddAgentScreen';
+import TaskDetailsScreen from '../screens/TaskDetailsScreen/TaskDetailsScreen';
+import TasksListingScreen from '../screens/TasksListingScreen/TasksListingScreen';
+import ActiveAgentListingScreen from '../screens/ActiveAgentListingScreen/ActiveAgentListingScreen';
 
 const
     AppRoutes = () => {
@@ -37,6 +40,9 @@ const
                 <Route path="/settings" element={<SettingsScreen />} /> */}
                     <Route path="/dashboard/add-agent" element={<AddAgentScreen />} />
                     <Route path='/dashboard/view-profile' element={<ViewProfileScreen />} />
+                    <Route path='/dashboard/task-details' element={<TaskDetailsScreen />} />
+                    <Route path='/dashboard/tasks-listing' element={<TasksListingScreen />} />
+                    <Route path='/dashboard/agents-listing' element={<ActiveAgentListingScreen />} />
                 </Routes>
             </Router>
         );

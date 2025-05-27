@@ -1,0 +1,50 @@
+.taskdetails-container {
+    padding: 24px;
+    background-color: #11998e;
+    min-height: 100vh;
+}
+
+.back-button {
+    background-color: #11998e;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.back-button:hover {
+    background-color: #0e8075;
+}
+
+.taskdetails-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.taskdetails-card {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    line-height: 1.6;
+}
+
+.taskdetails-card p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .taskdetails-card {
+        padding: 16px;
+    }
+
+    .taskdetails-card p {
+        font-size: 14px;
+    }
+}

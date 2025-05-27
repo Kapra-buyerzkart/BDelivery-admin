@@ -1,0 +1,53 @@
+.taskcomponent-content {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+}
+
+.taskcomponent-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.taskcomponent-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+}
+
+.taskcomponent-card {
+    background-color: #f8f9fa;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.taskcomponent-card:hover {
+    background-color: #e6f7f4;
+    /* transform: translateY(-3px); */
+}
+
+.taskcomponent-card p {
+    margin: 6px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .taskcomponent-cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    .taskcomponent-card {
+        padding: 12px;
+    }
+
+    .taskcomponent-card p {
+        font-size: 14px;
+    }
+}

@@ -85,17 +85,6 @@
     background-color: #0056b3;
 }
 
-/* ✅ NEW: Status Labels */
-.agentstatus-active {
-    color: green;
-    font-weight: bold;
-}
-
-.agentstatus-inactive {
-    color: red;
-    font-weight: bold;
-}
-
 @media (max-width: 768px) {
     .agentscomponent-content {
         width: 100%;
@@ -114,6 +103,7 @@
         padding: 6px 10px;
         font-size: 12px;
     }
+
 }
 
 @media (max-width: 480px) {
@@ -134,4 +124,5 @@
         padding: 6px 10px;
         font-size: 12px;
     }
+
 }
