@@ -7,6 +7,9 @@ import AddAgentScreen from '../screens/AddAgentScreen/AddAgentScreen';
 import TaskDetailsScreen from '../screens/TaskDetailsScreen/TaskDetailsScreen';
 import TasksListingScreen from '../screens/TasksListingScreen/TasksListingScreen';
 import ActiveAgentListingScreen from '../screens/ActiveAgentListingScreen/ActiveAgentListingScreen';
+import StorewiseReport from '../screens/StorewiseReportScreen/StorewiseReportScreen';
+import AgentWiseReportScreen from '../screens/AgentWiseReportScreen/AgentWiseReportScreen';
+import StoreDetailsScreen from '../screens/StoreDetailsScreen/StoreDetailsScreen';
 
 const
     AppRoutes = () => {
@@ -38,11 +41,15 @@ const
                 <Route path="/wallet" element={<WalletScreen />} />
                 <Route path="/report" element={<ReportScreen />} />\
                 <Route path="/settings" element={<SettingsScreen />} /> */}
-                    <Route path="/dashboard/add-agent" element={<AddAgentScreen />} />
-                    <Route path='/dashboard/view-profile' element={<ViewProfileScreen />} />
-                    <Route path='/dashboard/task-details' element={<TaskDetailsScreen />} />
-                    <Route path='/dashboard/tasks-listing' element={<TasksListingScreen />} />
-                    <Route path='/dashboard/agents-listing' element={<ActiveAgentListingScreen />} />
+                    <Route path="/dashboard/agents/add-agent" element={<AddAgentScreen />} />
+                    <Route path='/dashboard/agents/view-profile' element={<ViewProfileScreen />} />
+                    <Route path='/dashboard/tasks/task-details' element={<TaskDetailsScreen />} />
+                    <Route path='/dashboard/reports/tasks-listing/task-details' element={<TaskDetailsScreen />} />
+                    <Route path='/dashboard/reports/tasks-listing' element={<TasksListingScreen />} />
+                    <Route path='/dashboard/reports/agents-listing' element={<ActiveAgentListingScreen />} />
+                    <Route path='/dashboard/reports/agentwise-report' element={<AgentWiseReportScreen />} />
+                    <Route path='/dashboard/reports/storewise-report' element={<StorewiseReport />} />
+                    <Route path='/dashboard/reports/storewise-report/store-details' element={<StoreDetailsScreen />} />
                 </Routes>
             </Router>
         );

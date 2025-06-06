@@ -68,9 +68,16 @@ const SectionComponent = (props) => {
             storeNames={props.storeNames}
             types={props.types}
         />
-        ) : props.activeSection === "Tasks" ? (<TaskComponent
-            tasksData={props.tasksData}
-        />) : <ReportComponent totalTasks={150} totalAgents={25} />
+        ) 
+        // : props.activeSection === "Tasks" ? (<TaskComponent
+        //     tasksData={props.tasksData}
+        //     activeSection={props.activeSection}
+        // />) 
+        : <ReportComponent
+            totalTasks={150}
+            totalAgents={25}
+            activeSection={props.activeSection}
+        />
     )
 }
 

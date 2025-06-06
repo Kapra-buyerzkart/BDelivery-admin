@@ -6,19 +6,19 @@ const ReportComponent = ({ totalTasks, totalAgents }) => {
     const navigate = useNavigate();
 
     const handleTasksClick = () => {
-        navigate("./tasks-listing");
+        navigate("./reports/tasks-listing");
     };
 
     const handleAgentsClick = () => {
-        navigate("./agents-listing");
+        navigate("./reports/agents-listing");
     };
 
-    const handleDeliveryReport = () => {
-        navigate("/reports/delivery-agent-wise");
+    const handleDeliveryAgentReport = () => {
+        navigate("./reports/agentwise-report");
     };
 
     const handleStoreReport = () => {
-        navigate("/reports/store-wise");
+        navigate("./reports/storewise-report");
     };
 
     return (
@@ -36,7 +36,7 @@ const ReportComponent = ({ totalTasks, totalAgents }) => {
             </div>
 
             <div className="report-buttons">
-                <button className="report-button" onClick={handleDeliveryReport}>
+                <button className="report-button" onClick={handleDeliveryAgentReport}>
                     Delivery Agent Wise Report
                 </button>
                 <button className="report-button" onClick={handleStoreReport}>

@@ -26,7 +26,7 @@
     text-align: center;
     font-size: 1.75rem;
     color: #333;
-    margin-bottom: 1rem;
+    /* margin-bottom: 3rem; */
 }
 
 /* Form Fields */
@@ -227,6 +227,34 @@
     background-color: #666;
 }
 
+.viewprofile-duty-indicator {
+    display: flex;
+    align-items: center;
+    justify-content:flex-end;
+    margin-bottom: 1rem;
+    /* background-color: #c82333; */
+}
+
+.viewprofile-duty-circle {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.viewprofile-duty-text {
+    font-weight: bold;
+    color: #444;
+}
+
+.on-duty {
+    background-color: #28a745;
+}
+
+.off-duty {
+    background-color: #dc3545;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from {
@@ -273,6 +301,7 @@
     .viewprofile-modal {
         max-width: 90%;
     }
+
     .viewprofile-input {
         width: 92%;
     }

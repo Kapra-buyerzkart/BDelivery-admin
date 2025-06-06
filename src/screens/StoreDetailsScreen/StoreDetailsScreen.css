@@ -1,0 +1,48 @@
+.storedetails-container {
+    padding: 24px;
+    background-color: #11998e;
+    min-height: 100vh;
+}
+
+.storedetails-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.storedetails-card {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    line-height: 1.6;
+}
+
+.storedetails-card p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.agents-list {
+    padding-left: 20px;
+    margin: 8px 0 16px;
+}
+
+.agents-list li {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 4px;
+    list-style: disc;
+}
+
+@media (max-width: 768px) {
+    .storedetails-card {
+        padding: 16px;
+    }
+
+    .storedetails-card p,
+    .agents-list li {
+        font-size: 14px;
+    }
+}

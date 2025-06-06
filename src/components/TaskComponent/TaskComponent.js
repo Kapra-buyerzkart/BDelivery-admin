@@ -6,7 +6,7 @@ const TaskComponent = (props) => {
     const navigate = useNavigate();
 
     const handleTaskClick = (task) => {
-        navigate('./task-details', { state: { task } });
+        navigate('./tasks/task-details', { state: { task } });
     };
 
     return (

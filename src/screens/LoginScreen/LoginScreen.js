@@ -31,7 +31,7 @@ const LoginScreen = ({ onLogin }) => {
             if (adminDoc.exists()) {
                 const adminData = adminDoc.data();
                 if (adminData.password === password) {
-                    console.log("Login Successful");
+                    // console.log("Login Successful");
                     onLogin();
                 } else {
                     setError('Incorrect password.');

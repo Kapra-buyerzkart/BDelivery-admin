@@ -22,6 +22,7 @@ const TaskDetailsScreen = () => {
         type,
         amount,
         status,
+        deliveryAgent
     } = task;
 
     return (
@@ -49,6 +50,9 @@ const TaskDetailsScreen = () => {
                 <p><strong>Payment Type:</strong> {type}</p>
                 <p><strong>Amount:</strong> ₹{amount}</p>
                 <p><strong>Status:</strong> {status}</p>
+                {status === "Completed" && (
+                    <p><strong>Delivery Agent:</strong> {deliveryAgent}</p>
+                )}
             </div>
         </div>
     );

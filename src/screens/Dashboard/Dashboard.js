@@ -13,7 +13,7 @@ const Dashboard = (props) => {
     const [storeNames, setStoreNames] = useState([]);
     const [types, setTypes] = useState([]);
 
-    const sections = ["Agents", "Tasks", "Reports"];
+    const sections = ["Agents", "Reports"];
     const tasksData = [
         {
             amount: 250,
@@ -44,7 +44,8 @@ const Dashboard = (props) => {
             type: "cod",
             status: "Pending",
             date: "13 May, 2025",
-            time: "5:30 pm"
+            time: "5:30 pm",
+            deliveryAgent: "Agent One"
         },
         {
             amount: 250,
@@ -75,9 +76,41 @@ const Dashboard = (props) => {
             type: "cod",
             status: "Pending",
             date: "13 May, 2025",
-            time: "6:30 pm"
+            time: "6:30 pm",
+            deliveryAgent: "Agent Two"
         },
-
+        {
+            amount: 250,
+            customerName: "Customer Two",
+            deliveryAddress: {
+                addressLineOne: "Address Line One",
+                addressLineTwo: "Address Line Two",
+                addressLineThree: "Palarivattom",
+                latitude: "10.002803",
+                longitude: "76.307631",
+                pincode: "682025"
+            },
+            deliveryCompleted: false,
+            id: "1748330349016",
+            microStoreName: "Microstore 01, Vennala",
+            mobile: "1111111114",
+            pickupAddress: {
+                addressLineOne: "2nd floor, Nandhanam Tower",
+                addressLineTwo: "Kaniyapilly Rd",
+                addressLineThree: "Chakkaraparambu, Vennala",
+                latitude: "9.991581023428584",
+                longitude: "76.31693806117408",
+                pincode: "682028"
+            },
+            pickupCompleted: false,
+            storeId: "2222233333",
+            taskNo: "ORD1996141894",
+            type: "cod",
+            status: "Completed",
+            date: "13 May, 2025",
+            time: "6:30 pm",
+            deliveryAgent: "Agent Two"
+        },
     ]
 
     // console.log("API Key:", process.env.REACT_APP_FIREBASE_API_KEY_DEV);
@@ -108,7 +141,8 @@ const Dashboard = (props) => {
                         completedOrders: data.completedOrders,
                         completedOrdersCount: data.completedOrders.length,
                         distanceCovered: totalDistanceCovered,
-                        isActive: data.isActive
+                        onDuty: data.onDuty,
+                        storeId: data.storeId
                     };
                 });
 
@@ -160,6 +194,18 @@ const Dashboard = (props) => {
         props.onLogout();
     };
 
+    useEffect(() => {
+        const savedSection = sessionStorage.getItem("dashboard_activeSection");
+        if (savedSection) {
+            setActiveSection(savedSection);
+        }
+    }, []);
+
+    const handleSectionChange = (section) => {
+        setActiveSection(section);
+        sessionStorage.setItem("dashboard_activeSection", section);
+    };
+
     return (
         <div className="dashboard-container">
             {/* Header */}
@@ -182,7 +228,7 @@ const Dashboard = (props) => {
                                 <li key={section}>
                                     <button
                                         className={activeSection === section ? "active" : ""}
-                                        onClick={() => setActiveSection(section)}
+                                        onClick={() => handleSectionChange(section)}
                                     >
                                         {section}
                                     </button>

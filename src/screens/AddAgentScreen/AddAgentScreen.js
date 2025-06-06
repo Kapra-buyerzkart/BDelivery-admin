@@ -20,6 +20,7 @@ const AddAgentScreen = () => {
     const [modalHeader, setModalHeader] = useState('');
     const [modalMessage, setModalMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [storeId, setStoreId] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -65,8 +66,10 @@ const AddAgentScreen = () => {
                 password,
                 mobile,
                 storeName: selectedStore,
+                storeId,
                 type: selectedType,
                 completedOrders: [],
+                onDuty: false
             });
 
             setIsLoading(false);
@@ -95,9 +98,20 @@ const AddAgentScreen = () => {
                 <input type="number" placeholder="Mobile Number" value={mobile} onChange={(e) => setMobile(e.target.value)} required />
                 <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
                 <input type="text" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                <select value={selectedStore} onChange={(e) => setSelectedStore(e.target.value)} required>
+                <select value={selectedStore}
+                    onChange={(e) => {
+                        const selectedName = e.target.value;
+                        setSelectedStore(selectedName);
+
+                        const selectedStoreObj = storeNames.find(store => store.name === selectedName);
+                        if (selectedStoreObj) {
+                            setStoreId(selectedStoreObj.id);
+                        } else {
+                            setStoreId('');
+                        }
+                    }} required>
                     <option value="">Select Store Name</option>
-                    {storeNames.map((store) => <option key={store} value={store}>{store}</option>)}
+                    {storeNames.map((store) => <option key={store.id} value={store.name}>{store.name}</option>)}
                 </select>
                 <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)} required>
                     <option value="">Select Type</option>

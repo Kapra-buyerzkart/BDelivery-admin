@@ -6,7 +6,7 @@ const AgentsComponent = (props) => {
     const navigate = useNavigate();
 
     const onViewProfile = (agent) => {
-        navigate('./view-profile', {
+        navigate('./agents/view-profile', {
             state: {
                 agent,
                 storeNames: props.storeNames,
@@ -16,11 +16,12 @@ const AgentsComponent = (props) => {
     };
 
     const onAddAgent = () => {
-        navigate('./add-agent');
+        navigate('./agents/add-agent');
     };
 
     return (
         <main className="agentscomponent-content">
+            {console.log("props.agentsData", props.agentsData)}
             <div>
                 <div className="agentscomponent-agents-header">
                     <h2>Agents</h2>
@@ -45,8 +46,8 @@ const AgentsComponent = (props) => {
                                 <td>{agent.storeName}</td>
                                 <td>{agent.type}</td>
                                 <td>
-                                    <span className={agent.isActive ? "agentstatus-active" : "agentstatus-inactive"}>
-                                        {agent.isActive ? "Active" : "Inactive"}
+                                    <span className={agent.onDuty ? "agentstatus-active" : "agentstatus-inactive"}>
+                                        {agent.onDuty ? "On Duty" : "Off Duty"}
                                     </span>
                                 </td>
                                 <td>

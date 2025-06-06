@@ -57,7 +57,25 @@ const ViewProfileScreen = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setEditData({ ...editData, [name]: value });
+
+        if (name === 'storeName') {
+            // Find the selected store object
+            const selectedStore = storeNames.find(store => store.name === value);
+            const selectedStoreId = selectedStore ? selectedStore.id : '';
+
+            // Update both storeName and storeId
+            setEditData(prevData => ({
+                ...prevData,
+                storeName: value,
+                storeId: selectedStoreId
+            }));
+        } else {
+            // Handle other fields normally
+            setEditData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));
+        }
     };
 
     // Function to check if mobile number already exists
@@ -74,7 +92,7 @@ const ViewProfileScreen = () => {
     };
 
     const handleSave = async () => {
-        const { id, phoneNumber, name, storeName, type, completedOrders, completedOrdersCount, password } = editData;
+        const { id, phoneNumber, name, storeName, storeId, type, completedOrders, completedOrdersCount, password, distanceCovered, onDuty } = editData;
 
         if (!phoneNumber || !name || !storeName || !type || !password) {
             setModalMessage('Please fill in all required fields.');
@@ -113,8 +131,11 @@ const ViewProfileScreen = () => {
                 name,
                 password: password || '',
                 storeName: storeName,
+                storeId,
                 type,
                 completedOrders: completedOrders,
+                onDuty: onDuty,
+                distanceCovered: distanceCovered
             };
 
             if (oldMobile === phoneNumber && oldId === id) {
@@ -167,10 +188,16 @@ const ViewProfileScreen = () => {
 
     return (
         <div className="viewprofile-container">
-            {/* {console.log("/////", success)} */}
+            {console.log("/////", editData)}
             <div className="viewprofile-profile-card">
                 <h2 className="viewprofile-title">Profile Details</h2>
-
+                <div className="viewprofile-duty-indicator">
+                    <span
+                        className={`viewprofile-duty-circle ${editData.onDuty ? 'on-duty' : 'off-duty'}`}
+                    // title={editData.isOnDuty ? 'On Duty' : 'Off Duty'}
+                    ></span>
+                    <span className="viewprofile-duty-text">{editData.onDuty ? 'On Duty' : 'Off Duty'}</span>
+                </div>
                 <div className="viewprofile-field">
                     <label className="viewprofile-label">Agent ID:</label>
                     <div className="viewprofile-input-or-value">
@@ -214,6 +241,20 @@ const ViewProfileScreen = () => {
                 </div>
 
                 <div className="viewprofile-field">
+                    <label className="viewprofile-label">Password:</label>
+                    <div className="viewprofile-input-or-value">
+                        <input
+                            type="text"
+                            name="password"
+                            value={editData.password || ''}
+                            onChange={handleInputChange}
+                            className="viewprofile-input"
+                            disabled={!isEditing}
+                        />
+                    </div>
+                </div>
+
+                <div className="viewprofile-field">
                     <label className="viewprofile-label">Store Name:</label>
                     <div className="viewprofile-input-or-value">
                         <select
@@ -225,7 +266,7 @@ const ViewProfileScreen = () => {
                         >
                             <option value="">Select Store</option>
                             {storeNames.map((store, index) => (
-                                <option key={index} value={store}>{store}</option>
+                                <option key={index} value={store.name}>{store.name}</option>
                             ))}
                         </select>
                     </div>
