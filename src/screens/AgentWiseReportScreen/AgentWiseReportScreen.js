@@ -1,40 +1,11 @@
 import React from "react";
 import "./AgentWiseReportScreen.css";
 import { useNavigate } from "react-router-dom";
-
-const agentsData = [
-    {
-        id: "A001",
-        name: "Agent One",
-        mobile: "1112223334",
-        store: "Vennala",
-        completedTasks: 10,
-        totalEarnings: 2200,
-        totalKilometers: 34.5,
-    },
-    {
-        id: "A002",
-        name: "Agent Two",
-        mobile: "9998887776",
-        store: "Palarivattom",
-        completedTasks: 8,
-        totalEarnings: 1900,
-        totalKilometers: 29.3,
-    },
-    {
-        id: "A003",
-        name: "Agent Three",
-        mobile: "8887776665",
-        store: "Edappally",
-        completedTasks: 6,
-        totalEarnings: 1400,
-        totalKilometers: 21.8,
-    },
-];
+import { useSelector } from "react-redux";
 
 const AgentWiseReportScreen = () => {
     const navigate = useNavigate();
-
+    const { agentsData } = useSelector(state => state.agents);
     const handleDetailsClick = (agent) => {
         navigate("/agent-details", { state: { agent } });
     };
@@ -60,11 +31,11 @@ const AgentWiseReportScreen = () => {
                         <tr key={index}>
                             <td>{agent.id}</td>
                             <td>{agent.name}</td>
-                            <td>{agent.mobile}</td>
-                            <td>{agent.store}</td>
-                            <td>{agent.completedTasks}</td>
+                            <td>{agent.phoneNumber}</td>
+                            <td>{agent.storeName}</td>
+                            <td>{agent.completedOrdersCount}</td>
                             <td>{agent.totalEarnings}</td>
-                            <td>{agent.totalKilometers}</td>
+                            <td>{agent.distanceCovered}</td>
                             {/* <td>
                                 <button
                                     className="details-button"

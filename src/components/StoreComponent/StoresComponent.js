@@ -1,9 +1,9 @@
 import React from "react";
-import "./AgentsComponent.css";
+import "./StoresComponent.css";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
-const AgentsComponent = (props) => {
+const StoresComponent = (props) => {
     const navigate = useNavigate();
 
     const { agentsData } = useSelector(state => state.agents);
@@ -23,21 +23,21 @@ const AgentsComponent = (props) => {
     };
 
     return (
-        <main className="agentscomponent-content">
+        <main className="storescomponent-content">
             <div>
-                <div className="agentscomponent-agents-header">
-                    <h2>Agents</h2>
-                    <button onClick={onAddAgent} className="agentscomponent-add-agent">
-                        ADD AGENT
+                <div className="storescomponent-agents-header">
+                    <h2>Stores</h2>
+                    <button onClick={onAddAgent} className="storescomponent-add-agent">
+                        ADD STORE
                     </button>
                 </div>
-                <table className="agentscomponent-agent-table">
+                <table className="storescomponent-agent-table">
                     <thead>
                         <tr>
-                            <th>Agent Name</th>
+                            <th>Store Id</th>
                             <th>Store Name</th>
-                            <th>Type</th>
-                            <th>Status</th>
+                            <th>Store Type</th>
+                            <th>Delivery Agents</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -54,7 +54,7 @@ const AgentsComponent = (props) => {
                                 </td>
                                 <td>
                                     <button onClick={() => onViewProfile(agent)} className="view-profile">
-                                        View Profile
+                                        View Details
                                     </button>
                                 </td>
                             </tr>
@@ -66,4 +66,4 @@ const AgentsComponent = (props) => {
     );
 };
 
-export default AgentsComponent;
+export default StoresComponent;

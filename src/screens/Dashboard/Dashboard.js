@@ -4,191 +4,207 @@ import { db } from "../../firebase/firebaseConfig";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { ClipLoader } from "react-spinners";
 import SectionComponent from "../../components/SectionComponent/SectionComponent";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAgents } from "../../redux/slices/agentSlice";
+import { fetchCompletedTasks } from "../../redux/slices/taskSlice";
+import { fetchStoresDetailsTypes } from "../../redux/slices/storesDetailsTypes";
 
 const Dashboard = (props) => {
     const [activeSection, setActiveSection] = useState("Agents");
     const [screen, setScreen] = useState("dashboard");
-    const [agentsData, setAgentsData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [storeNames, setStoreNames] = useState([]);
-    const [types, setTypes] = useState([]);
+    // const [agentsData, setAgentsData] = useState([]);
+    // const [loading, setLoading] = useState(true);
+    // const [storeNames, setStoreNames] = useState([]);
+    // const [types, setTypes] = useState([]);
 
-    const sections = ["Agents", "Reports"];
-    const tasksData = [
-        {
-            amount: 250,
-            customerName: "Customer Two",
-            deliveryAddress: {
-                addressLineOne: "Address Line One",
-                addressLineTwo: "Address Line Two",
-                addressLineThree: "Palarivattom",
-                latitude: "10.002803",
-                longitude: "76.307631",
-                pincode: "682025"
-            },
-            deliveryCompleted: false,
-            id: "1748330349014",
-            microStoreName: "Microstore 01, Vennala",
-            mobile: "1111111114",
-            pickupAddress: {
-                addressLineOne: "2nd floor, Nandhanam Tower",
-                addressLineTwo: "Kaniyapilly Rd",
-                addressLineThree: "Chakkaraparambu, Vennala",
-                latitude: "9.991581023428584",
-                longitude: "76.31693806117408",
-                pincode: "682028"
-            },
-            pickupCompleted: false,
-            storeId: "2222233333",
-            taskNo: "ORD1996141893",
-            type: "cod",
-            status: "Pending",
-            date: "13 May, 2025",
-            time: "5:30 pm",
-            deliveryAgent: "Agent One"
-        },
-        {
-            amount: 250,
-            customerName: "Customer Two",
-            deliveryAddress: {
-                addressLineOne: "Address Line One",
-                addressLineTwo: "Address Line Two",
-                addressLineThree: "Palarivattom",
-                latitude: "10.002803",
-                longitude: "76.307631",
-                pincode: "682025"
-            },
-            deliveryCompleted: false,
-            id: "1748330349015",
-            microStoreName: "Microstore 01, Vennala",
-            mobile: "1111111114",
-            pickupAddress: {
-                addressLineOne: "2nd floor, Nandhanam Tower",
-                addressLineTwo: "Kaniyapilly Rd",
-                addressLineThree: "Chakkaraparambu, Vennala",
-                latitude: "9.991581023428584",
-                longitude: "76.31693806117408",
-                pincode: "682028"
-            },
-            pickupCompleted: false,
-            storeId: "2222233333",
-            taskNo: "ORD1996141894",
-            type: "cod",
-            status: "Pending",
-            date: "13 May, 2025",
-            time: "6:30 pm",
-            deliveryAgent: "Agent Two"
-        },
-        {
-            amount: 250,
-            customerName: "Customer Two",
-            deliveryAddress: {
-                addressLineOne: "Address Line One",
-                addressLineTwo: "Address Line Two",
-                addressLineThree: "Palarivattom",
-                latitude: "10.002803",
-                longitude: "76.307631",
-                pincode: "682025"
-            },
-            deliveryCompleted: false,
-            id: "1748330349016",
-            microStoreName: "Microstore 01, Vennala",
-            mobile: "1111111114",
-            pickupAddress: {
-                addressLineOne: "2nd floor, Nandhanam Tower",
-                addressLineTwo: "Kaniyapilly Rd",
-                addressLineThree: "Chakkaraparambu, Vennala",
-                latitude: "9.991581023428584",
-                longitude: "76.31693806117408",
-                pincode: "682028"
-            },
-            pickupCompleted: false,
-            storeId: "2222233333",
-            taskNo: "ORD1996141894",
-            type: "cod",
-            status: "Completed",
-            date: "13 May, 2025",
-            time: "6:30 pm",
-            deliveryAgent: "Agent Two"
-        },
-    ]
+    const sections = ["Agents", "Stores", "Reports"];
+    // const tasksData = [
+    //     {
+    //         amount: 250,
+    //         customerName: "Customer Two",
+    //         deliveryAddress: {
+    //             addressLineOne: "Address Line One",
+    //             addressLineTwo: "Address Line Two",
+    //             addressLineThree: "Palarivattom",
+    //             latitude: "10.002803",
+    //             longitude: "76.307631",
+    //             pincode: "682025"
+    //         },
+    //         deliveryCompleted: false,
+    //         id: "1748330349014",
+    //         microStoreName: "Microstore 01, Vennala",
+    //         mobile: "1111111114",
+    //         pickupAddress: {
+    //             addressLineOne: "2nd floor, Nandhanam Tower",
+    //             addressLineTwo: "Kaniyapilly Rd",
+    //             addressLineThree: "Chakkaraparambu, Vennala",
+    //             latitude: "9.991581023428584",
+    //             longitude: "76.31693806117408",
+    //             pincode: "682028"
+    //         },
+    //         pickupCompleted: false,
+    //         storeId: "2222233333",
+    //         taskNo: "ORD1996141893",
+    //         type: "cod",
+    //         status: "Pending",
+    //         date: "13 May, 2025",
+    //         time: "5:30 pm",
+    //         deliveryAgent: "Agent One"
+    //     },
+    //     {
+    //         amount: 250,
+    //         customerName: "Customer Two",
+    //         deliveryAddress: {
+    //             addressLineOne: "Address Line One",
+    //             addressLineTwo: "Address Line Two",
+    //             addressLineThree: "Palarivattom",
+    //             latitude: "10.002803",
+    //             longitude: "76.307631",
+    //             pincode: "682025"
+    //         },
+    //         deliveryCompleted: false,
+    //         id: "1748330349015",
+    //         microStoreName: "Microstore 01, Vennala",
+    //         mobile: "1111111114",
+    //         pickupAddress: {
+    //             addressLineOne: "2nd floor, Nandhanam Tower",
+    //             addressLineTwo: "Kaniyapilly Rd",
+    //             addressLineThree: "Chakkaraparambu, Vennala",
+    //             latitude: "9.991581023428584",
+    //             longitude: "76.31693806117408",
+    //             pincode: "682028"
+    //         },
+    //         pickupCompleted: false,
+    //         storeId: "2222233333",
+    //         taskNo: "ORD1996141894",
+    //         type: "cod",
+    //         status: "Pending",
+    //         date: "13 May, 2025",
+    //         time: "6:30 pm",
+    //         deliveryAgent: "Agent Two"
+    //     },
+    //     {
+    //         amount: 250,
+    //         customerName: "Customer Two",
+    //         deliveryAddress: {
+    //             addressLineOne: "Address Line One",
+    //             addressLineTwo: "Address Line Two",
+    //             addressLineThree: "Palarivattom",
+    //             latitude: "10.002803",
+    //             longitude: "76.307631",
+    //             pincode: "682025"
+    //         },
+    //         deliveryCompleted: false,
+    //         id: "1748330349016",
+    //         microStoreName: "Microstore 01, Vennala",
+    //         mobile: "1111111114",
+    //         pickupAddress: {
+    //             addressLineOne: "2nd floor, Nandhanam Tower",
+    //             addressLineTwo: "Kaniyapilly Rd",
+    //             addressLineThree: "Chakkaraparambu, Vennala",
+    //             latitude: "9.991581023428584",
+    //             longitude: "76.31693806117408",
+    //             pincode: "682028"
+    //         },
+    //         pickupCompleted: false,
+    //         storeId: "2222233333",
+    //         taskNo: "ORD1996141894",
+    //         type: "cod",
+    //         status: "Completed",
+    //         date: "13 May, 2025",
+    //         time: "6:30 pm",
+    //         deliveryAgent: "Agent Two"
+    //     },
+    // ]
 
     // console.log("API Key:", process.env.REACT_APP_FIREBASE_API_KEY_DEV);
 
-    useEffect(() => {
-        const fetchAgentsData = async () => {
-            try {
-                const agentsCollection = collection(db, "deliveryAgents");
-                const querySnapshot = await getDocs(agentsCollection);
-
-                const agents = querySnapshot.docs.map((doc) => {
-                    const data = doc.data() || {};
-
-                    const completedOrders = data.completedOrders || [];
-
-                    // Calculate total distance covered
-                    const totalDistanceCovered = completedOrders.reduce((sum, order) => {
-                        return sum + (order.kilometers || 0);
-                    }, 0);
-
-                    return {
-                        id: data.id || "Unknown",
-                        phoneNumber: data.mobile,
-                        name: data.name || "Unnamed Picker",
-                        password: data.password,
-                        storeName: data.storeName,
-                        type: data.type,
-                        completedOrders: data.completedOrders,
-                        completedOrdersCount: data.completedOrders.length,
-                        distanceCovered: totalDistanceCovered,
-                        onDuty: data.onDuty,
-                        storeId: data.storeId
-                    };
-                });
-
-                setAgentsData(agents);
-            } catch (error) {
-                console.error("Error fetching agents data:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchAgentsData();
-    }, []);
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        // Fetch store names from Firestore
-        const fetchStoreNames = async () => {
-            try {
-                // console.log("1111")
-                const storeNamesDocRef = doc(db, 'storeNames', 'storeNames');
-                const storeNamesDoc = await getDoc(storeNamesDocRef);
-                if (storeNamesDoc.exists()) {
-                    setStoreNames(storeNamesDoc.data().storeNames);
-                }
-            } catch (error) {
-                console.error('Error fetching store names:', error);
-            }
-        };
+        dispatch(fetchAgents())
+        dispatch(fetchCompletedTasks())
+        dispatch(fetchStoresDetailsTypes())
+    }, [])
 
-        // Fetch types from Firestore
-        const fetchTypes = async () => {
-            try {
-                // console.log("222")
-                const typesDocRef = doc(db, 'types', 'types');
-                const typesDoc = await getDoc(typesDocRef);
-                if (typesDoc.exists()) {
-                    setTypes(typesDoc.data().types);
-                }
-            } catch (error) {
-                console.error('Error fetching types:', error);
-            }
-        };
+    const { agentLoading } = useSelector(state => state.agents);
+    const { tasksLoading } = useSelector(state => state.tasks);
+    const { storesDetailsTypesLoading } = useSelector(state => state.storesDetailsTypes);
 
-        fetchStoreNames();
-        fetchTypes();
-    }, []);
+    // useEffect(() => {
+    //     const fetchAgentsData = async () => {
+    //         try {
+    //             const agentsCollection = collection(db, "deliveryAgents");
+    //             const querySnapshot = await getDocs(agentsCollection);
+
+    //             const agents = querySnapshot.docs.map((doc) => {
+    //                 const data = doc.data() || {};
+
+    //                 const completedOrders = data.completedOrders || [];
+
+    //                 // Calculate total distance covered
+    //                 const totalDistanceCovered = completedOrders.reduce((sum, order) => {
+    //                     return sum + (order.kilometers || 0);
+    //                 }, 0);
+
+    //                 return {
+    //                     id: data.id || "Unknown",
+    //                     phoneNumber: data.mobile,
+    //                     name: data.name || "Unnamed Picker",
+    //                     password: data.password,
+    //                     storeName: data.storeName,
+    //                     type: data.type,
+    //                     completedOrders: data.completedOrders,
+    //                     completedOrdersCount: data.completedOrders.length,
+    //                     distanceCovered: totalDistanceCovered,
+    //                     onDuty: data.onDuty,
+    //                     storeId: data.storeId
+    //                 };
+    //             });
+
+    //             setAgentsData(agents);
+    //         } catch (error) {
+    //             console.error("Error fetching agents data:", error);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     fetchAgentsData();
+    // }, []);
+
+    // useEffect(() => {
+    //     // Fetch store names from Firestore
+    //     const fetchStoreNames = async () => {
+    //         try {
+    //             // console.log("1111")
+    //             const storeNamesDocRef = doc(db, 'storeNames', 'storeNames');
+    //             const storeNamesDoc = await getDoc(storeNamesDocRef);
+    //             if (storeNamesDoc.exists()) {
+    //                 setStoreNames(storeNamesDoc.data().storeNames);
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching store names:', error);
+    //         }
+    //     };
+
+    //     // Fetch types from Firestore
+    //     const fetchTypes = async () => {
+    //         try {
+    //             // console.log("222")
+    //             const typesDocRef = doc(db, 'types', 'types');
+    //             const typesDoc = await getDoc(typesDocRef);
+    //             if (typesDoc.exists()) {
+    //                 setTypes(typesDoc.data().types);
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching types:', error);
+    //         }
+    //     };
+
+    //     fetchStoreNames();
+    //     fetchTypes();
+    // }, []);
 
     const handleLogout = () => {
         props.onLogout();
@@ -214,7 +230,7 @@ const Dashboard = (props) => {
                 <button onClick={handleLogout} className="logout-button">Logout</button>
             </header>
 
-            {loading ? (
+            {agentLoading && tasksLoading && storesDetailsTypesLoading ? (
                 // Loader while data is loading
                 <div className="dashboard-loader-container">
                     <ClipLoader color="#11998e" size={60} />
@@ -238,12 +254,12 @@ const Dashboard = (props) => {
                     </aside>
 
                     <SectionComponent
-                        agentsData={agentsData}
+                        // agentsData={agentsData}
                         activeSection={activeSection}
                         props={props}
-                        storeNames={storeNames}
-                        types={types}
-                        tasksData={tasksData}
+                        // storeNames={storeNames}
+                        // types={types}
+                    // tasksData={completedTasks}
                     />
                 </div>
             )}

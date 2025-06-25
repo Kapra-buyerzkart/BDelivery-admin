@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import AgentsComponent from "../AgentsComponent/AgentsComponent";
 import TaskComponent from "../TaskComponent/TaskComponent";
 import ReportComponent from "../ReportComponent/ReportComponent";
+import { useSelector } from "react-redux";
+import StoresComponent from "../StoreComponent/StoresComponent";
 
 const SectionComponent = (props) => {
     // const [activeSection, setActiveSection] = useState("Agents");
@@ -21,7 +23,11 @@ const SectionComponent = (props) => {
     // ];
     const navigate = useNavigate();
 
+
+
     // console.log('mmmmm', props.agentsData)
+
+    // const { agentsData } = useSelector(state => state.agents);
 
     return (
         // < main className="agentscomponent-content" >
@@ -62,22 +68,22 @@ const SectionComponent = (props) => {
         //     }
         // </main >
         props.activeSection === "Agents" ? (<AgentsComponent
-            agentsData={props.agentsData}
+            // agentsData={props.agentsData}
             activeSection={props.activeSection}
             props={props.props}
-            storeNames={props.storeNames}
-            types={props.types}
+        // storeNames={props.storeNames}
+        // types={props.types}
         />
-        ) 
-        // : props.activeSection === "Tasks" ? (<TaskComponent
-        //     tasksData={props.tasksData}
-        //     activeSection={props.activeSection}
-        // />) 
-        : <ReportComponent
-            totalTasks={150}
-            totalAgents={25}
-            activeSection={props.activeSection}
-        />
+        )
+            : props.activeSection === "Stores" ? (<StoresComponent
+            // tasksData={props.tasksData}
+            // activeSection={props.activeSection}
+            />)
+                : <ReportComponent
+                    // totalTasks={completedTasks.length}
+                    totalAgents={25}
+                    activeSection={props.activeSection}
+                />
     )
 }
 

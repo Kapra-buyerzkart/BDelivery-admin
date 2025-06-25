@@ -3,6 +3,7 @@ import { db } from '../../firebase/firebaseConfig';
 import { doc, setDoc, deleteDoc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './ViewProfileScreen.css';
+import { useSelector } from 'react-redux';
 
 const ViewProfileScreen = () => {
     const location = useLocation();
@@ -12,10 +13,12 @@ const ViewProfileScreen = () => {
     const [modalMessage, setModalMessage] = useState('');
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [header, setHeader] = useState('');
-    const [storeNames, setStoreNames] = useState(location.state.storeNames || []);
-    const [types, setTypes] = useState(location.state.types || []);
+    // const [storeNames] = useState(location.state.storeNames || []);
+    // const [types, setTypes] = useState(location.state.types || []);
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
+
+    const { storesDetails, agentTypes } = useSelector(state => state.storesDetailsTypes);
 
     // useEffect(() => {
     //     // Fetch store names from Firestore
@@ -60,7 +63,7 @@ const ViewProfileScreen = () => {
 
         if (name === 'storeName') {
             // Find the selected store object
-            const selectedStore = storeNames.find(store => store.name === value);
+            const selectedStore = storesDetails.find(store => store.name === value);
             const selectedStoreId = selectedStore ? selectedStore.id : '';
 
             // Update both storeName and storeId
@@ -188,7 +191,9 @@ const ViewProfileScreen = () => {
 
     return (
         <div className="viewprofile-container">
-            {console.log("/////", editData)}
+            {/* {console.log("/////", editData)}
+            {console.log("storesDetails", storesDetails)}
+            {console.log("types", types)} */}
             <div className="viewprofile-profile-card">
                 <h2 className="viewprofile-title">Profile Details</h2>
                 <div className="viewprofile-duty-indicator">
@@ -265,7 +270,7 @@ const ViewProfileScreen = () => {
                             disabled={!isEditing}
                         >
                             <option value="">Select Store</option>
-                            {storeNames.map((store, index) => (
+                            {storesDetails.map((store, index) => (
                                 <option key={index} value={store.name}>{store.name}</option>
                             ))}
                         </select>
@@ -283,7 +288,7 @@ const ViewProfileScreen = () => {
                             disabled={!isEditing}
                         >
                             <option value="">Select Type</option>
-                            {types.map((type, index) => (
+                            {agentTypes.map((type, index) => (
                                 <option key={index} value={type}>{type}</option>
                             ))}
                         </select>

@@ -49,7 +49,7 @@ const TaskDetailsScreen = () => {
                 <p><strong>Time:</strong> {time}</p>
                 <p><strong>Payment Type:</strong> {type}</p>
                 <p><strong>Amount:</strong> ₹{amount}</p>
-                <p><strong>Status:</strong> {status}</p>
+                {/* <p><strong>Status:</strong> {status}</p> */}
                 {status === "Completed" && (
                     <p><strong>Delivery Agent:</strong> {deliveryAgent}</p>
                 )}
