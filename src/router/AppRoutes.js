@@ -10,6 +10,8 @@ import ActiveAgentListingScreen from '../screens/ActiveAgentListingScreen/Active
 import StorewiseReport from '../screens/StorewiseReportScreen/StorewiseReportScreen';
 import AgentWiseReportScreen from '../screens/AgentWiseReportScreen/AgentWiseReportScreen';
 import StoreDetailsScreen from '../screens/StoreDetailsScreen/StoreDetailsScreen';
+import ViewStoreScreen from '../screens/ViewStoreScreen/ViewStoreScreen';
+import AddStoreScreen from '../screens/AddStoreScreen/AddStoreScreen';
 
 const
     AppRoutes = () => {
@@ -43,6 +45,8 @@ const
                 <Route path="/settings" element={<SettingsScreen />} /> */}
                     <Route path="/dashboard/agents/add-agent" element={<AddAgentScreen />} />
                     <Route path='/dashboard/agents/view-profile' element={<ViewProfileScreen />} />
+                    <Route path='/dashboard/store/add-store' element={<AddStoreScreen />} />
+                    <Route path='/dashboard/store/view-store' element={<ViewStoreScreen />} />
                     <Route path='/dashboard/tasks/task-details' element={<TaskDetailsScreen />} />
                     <Route path='/dashboard/reports/tasks-listing/task-details' element={<TaskDetailsScreen />} />
                     <Route path='/dashboard/reports/tasks-listing' element={<TasksListingScreen />} />

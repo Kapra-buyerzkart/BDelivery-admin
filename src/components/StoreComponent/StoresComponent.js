@@ -6,20 +6,18 @@ import { useSelector } from "react-redux";
 const StoresComponent = (props) => {
     const navigate = useNavigate();
 
-    const { agentsData } = useSelector(state => state.agents);
+    const { storesDetails } = useSelector(state => state.storesDetailsTypes);
 
-    const onViewProfile = (agent) => {
-        navigate('./agents/view-profile', {
+    const onViewDetails = (store) => {
+        navigate('./store/view-store', {
             state: {
-                agent,
-                // storeNames: props.storeNames,
-                // types: props.types
+                store,
             }
         });
     };
 
     const onAddAgent = () => {
-        navigate('./agents/add-agent');
+        navigate('./store/add-store');
     };
 
     return (
@@ -42,18 +40,19 @@ const StoresComponent = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {agentsData.map((agent) => (
-                            <tr key={agent.id}>
-                                <td>{agent.name}</td>
-                                <td>{agent.storeName}</td>
-                                <td>{agent.type}</td>
-                                <td>
+                        {storesDetails.map((store) => (
+                            <tr key={store.id}>
+                                <td>{store.id}</td>
+                                <td>{store.name}</td>
+                                <td>{store.type}</td>
+                                <td>{store.deliveryAgents.length}</td>
+                                {/* <td>
                                     <span className={agent.onDuty ? "agentstatus-active" : "agentstatus-inactive"}>
                                         {agent.onDuty ? "On Duty" : "Off Duty"}
                                     </span>
-                                </td>
+                                </td> */}
                                 <td>
-                                    <button onClick={() => onViewProfile(agent)} className="view-profile">
+                                    <button onClick={() => onViewDetails(store)} className="view-profile">
                                         View Details
                                     </button>
                                 </td>

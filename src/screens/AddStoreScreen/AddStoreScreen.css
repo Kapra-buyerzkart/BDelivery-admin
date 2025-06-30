@@ -1,0 +1,187 @@
+.addstore-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    min-height: 100vh;
+    background-color: #11998e;
+}
+
+.addstore-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 500px;
+}
+
+.addstore-header {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 0.1rem;
+    text-align: center;
+}
+
+.addstore-form input,
+.addstore-form select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Dropdown responsive improvements */
+.addstore-form select {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+}
+
+/* Adjusted button and input for smaller devices */
+.addstore-form button {
+    background: #228b22;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.addstore-form button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.addstore-form button:hover {
+    background: #1a6e1a;
+}
+
+/* Modal Styles */
+.addstore-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.addstore-modal>div {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    max-width: 90%;
+}
+
+.addstore-modal button {
+    background: #004dcf;
+    color: #ffffff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Success Modal */
+.addstore-modal .success-modal h3 {
+    color: #228b22;
+    /* Green color for success */
+}
+
+.addstore-modal .success-modal p {
+    color: #333;
+    font-size: 1rem;
+}
+
+/* Alert Modal */
+.addstore-modal .alert-modal h3 {
+    color: #ff5733;
+    /* Red color for alert */
+}
+
+.addstore-modal .alert-modal p {
+    color: #333;
+    font-size: 1rem;
+}
+
+.addstore-modal>div h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.addstore-modal>div h3.addagent-modal-success {
+    color: #228B22;
+    /* Green for Success */
+}
+
+/* Media Queries for Smaller Devices */
+@media (max-width: 768px) {
+    .addstore-form {
+        padding: 1.5rem;
+        width: 90%;
+    }
+
+    .addstore-header {
+        font-size: 1.6rem;
+    }
+
+    .addstore-form input,
+    .addstore-form select {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .addstore-form select {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .addstore-form button {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .addstore-form {
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .addstore-header {
+        font-size: 1.5rem;
+    }
+
+    .addstore-form input,
+    .addstore-form select {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .addstore-form select {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .addstore-form button {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+}

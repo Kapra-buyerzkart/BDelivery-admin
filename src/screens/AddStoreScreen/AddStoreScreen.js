@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doc, setDoc, getDoc, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase/firebaseConfig';
-import './AddAgentScreen.css';
+import './AddStoreScreen.css';
 import { useSelector } from 'react-redux';
 
-const AddAgentScreen = () => {
+const AddStoreScreen = () => {
     const [id, setId] = useState('');
-    const [name, setName] = useState('');
+    const [storeName, setStoreName] = useState('');
+    const [type, setType] = useState('');
     const [password, setPassword] = useState('');
     const [mobile, setMobile] = useState('');
     const [storeNames, setStoreNames] = useState([]);
@@ -34,72 +35,74 @@ const AddAgentScreen = () => {
     //     fetchDropdownData();
     // }, []);
 
-    const { storesDetails, agentTypes } = useSelector(state => state.storesDetailsTypes)
+    const { storeTypes } = useSelector(state => state.storesDetailsTypes)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
 
         try {
-            const agentDocRef = doc(db, 'deliveryAgents', id);
-            const agentDocSnap = await getDoc(agentDocRef);
-            const mobileQuery = await getDocs(query(collection(db, 'deliveryAgents'), where('mobile', '==', mobile)));
-            const storeDocRef = doc(db, 'stores', 'stores');
-            const storeDocSnap = await getDoc(storeDocRef);
+            const docRef = doc(db, 'stores', 'stores');
+            const docSnap = await getDoc(docRef);
+            // const mobileQuery = await getDocs(query(collection(db, 'deliveryAgents'), where('mobile', '==', mobile)));
 
-            if (agentDocSnap.exists()) {
-                setIsIdExistsModalOpen(true);
-                setModalHeader("Alert")
-                setModalMessage("Agent with this ID already exists.")
-                setIsModalOpen(true)
-                setIsLoading(false);
-                return;
-            }
+            // if (docSnap.exists()) {
+            //     setIsIdExistsModalOpen(true);
+            //     setModalHeader("Alert")
+            //     setModalMessage("Agent with this ID already exists.")
+            //     setIsModalOpen(true)
+            //     setIsLoading(false);
+            //     return;
+            // }
 
-            if (mobileQuery.size > 0) {
-                setIsMobileExistsModalOpen(true);
-                setModalHeader("Alert")
-                setModalMessage("Agent with this mobile number already exists.")
-                setIsModalOpen(true)
-                setIsLoading(false);
-                return;
-            }
+            // if (mobileQuery.size > 0) {
+            //     setIsMobileExistsModalOpen(true);
+            //     setModalHeader("Alert")
+            //     setModalMessage("Agent with this mobile number already exists.")
+            //     setIsModalOpen(true)
+            //     setIsLoading(false);
+            //     return;
+            // }
 
-            await setDoc(agentDocRef, {
-                id,
-                name,
-                password,
-                mobile,
-                storeName: selectedStore,
-                storeId,
+            const storeFields = {
+                id: id,
+                // mobile: phoneNumber,
+                name: storeName,
+                // password: password || '',
+                // storeName: storeName,
+                // storeId,
                 type: selectedType,
-                completedOrders: [],
-                onDuty: false
+                completedTasks: [],
+                deliveryAgents: []
+                // onDuty: onDuty,
+                // distanceCovered: distanceCovered
+            };
+
+            const storesArray = docSnap.data().stores || [];
+
+            const updatedStores = storesArray
+                .concat(storeFields); // Add the new store
+
+            await updateDoc(docRef, {
+                stores: updatedStores
             });
 
-            const storesArray = storeDocSnap.data().stores || [];
 
-            const updatedStores = storesArray.map(store => {
-                if (store.id === storeId) {
-                    const existingAgents = store.deliveryAgents || [];
-                    return {
-                        ...store,
-                        deliveryAgents: [
-                            ...existingAgents,
-                            { id: id, name: name }
-                        ]
-                    };
-                }
-                return store;
-            })
-
-            await updateDoc(storeDocRef, {
-                stores: updatedStores
-            })
+            // await setDoc(docRef, {
+            //     id,
+            //     name,
+            //     password,
+            //     mobile,
+            //     storeName: selectedStore,
+            //     storeId,
+            //     type: selectedType,
+            //     completedOrders: [],
+            //     onDuty: false
+            // });
 
             setIsLoading(false);
             setModalHeader("Success") // Show success modal after successful creation
-            setModalMessage("Agent added successfully!")
+            setModalMessage("Store added successfully!")
             setIsSuccessModalOpen(true);
             setIsModalOpen(true)
         } catch (error) {
@@ -116,19 +119,19 @@ const AddAgentScreen = () => {
     };
 
     return (
-        <div className="addagent-container">
-            <form onSubmit={handleSubmit} className="addagent-form">
-                <h2 className="addagent-header">Add Agent</h2>
+        <div className="addstore-container">
+            <form onSubmit={handleSubmit} className="addstore-form">
+                <h2 className="addstore-header">Add Store</h2>
                 <input type="text" placeholder="ID" value={id} onChange={(e) => setId(e.target.value)} required />
-                <input type="number" placeholder="Mobile Number" value={mobile} onChange={(e) => setMobile(e.target.value)} required />
-                <input type="text" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} required />
-                <input type="text" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                <select value={selectedStore}
+                {/* <input type="number" placeholder="Mobile Number" value={mobile} onChange={(e) => setMobile(e.target.value)} required /> */}
+                <input type="text" placeholder="Store Name" value={storeName} onChange={(e) => setStoreName(e.target.value)} required />
+                {/* <input type="text" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required /> */}
+                {/* <select value={selectedStore}
                     onChange={(e) => {
                         const selectedName = e.target.value;
                         setSelectedStore(selectedName);
 
-                        const selectedStoreObj = storesDetails.find(store => store.name === selectedName);
+                        const selectedStoreObj = storeNames.find(store => store.name === selectedName);
                         if (selectedStoreObj) {
                             setStoreId(selectedStoreObj.id);
                         } else {
@@ -136,13 +139,13 @@ const AddAgentScreen = () => {
                         }
                     }} required>
                     <option value="">Select Store Name</option>
-                    {storesDetails.map((store) => <option key={store.id} value={store.name}>{store.name}</option>)}
-                </select>
-                <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)} required>
+                    {storeNames.map((store) => <option key={store.id} value={store.name}>{store.name}</option>)}
+                </select> */}
+                <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)} >
                     <option value="">Select Type</option>
-                    {agentTypes.map((type) => <option key={type} value={type}>{type}</option>)}
+                    {storeTypes.map((type) => <option key={type} value={type}>{type}</option>)}
                 </select>
-                <button type="submit" disabled={isLoading}>{isLoading ? 'Saving...' : 'Save Agent'}</button>
+                <button type="submit" disabled={isLoading}>{isLoading ? 'Saving...' : 'Save Store'}</button>
             </form>
 
             {/* ID exists modal */}
@@ -182,9 +185,9 @@ const AddAgentScreen = () => {
             )} */}
 
             {isModalOpen && (
-                <div className="addagent-modal">
+                <div className="addstore-modal">
                     <div>
-                        <h3 className={modalHeader === "Success" ? 'addagent-modal-success' : ""}>{modalHeader}</h3>
+                        <h3 className={modalHeader === "Success" ? 'addstore-modal-success' : ""}>{modalHeader}</h3>
                         <p>{modalMessage}</p>
                         <button onClick={() => {
                             closeModal();
@@ -198,4 +201,4 @@ const AddAgentScreen = () => {
     );
 };
 
-export default AddAgentScreen;
+export default AddStoreScreen;
