@@ -1,32 +1,34 @@
 import React from "react";
 import "./StorewiseReportScreen.css";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 // Sample data
-const storeData = [
-    {
-        storeId: "S001",
-        storeName: "Microstore 01, Vennala",
-        storeType: "Company-Owned",
-        deliveryAgents: ["Agent One", "Agent Two"],
-        totalTasksCompleted: 25,
-        totalCOD: 5000,
-        totalOnline: 3000,
-    },
-    {
-        storeId: "S002",
-        storeName: "Vendor Store 02",
-        storeType: "Vendor",
-        deliveryAgents: ["Agent Three"],
-        totalTasksCompleted: 10,
-        totalCOD: 1500,
-        totalOnline: 1200,
-    },
-];
+// const storeData = [
+//     {
+//         storeId: "S001",
+//         storeName: "Microstore 01, Vennala",
+//         storeType: "Company-Owned",
+//         deliveryAgents: ["Agent One", "Agent Two"],
+//         totalTasksCompleted: 25,
+//         totalCOD: 5000,
+//         totalOnline: 3000,
+//     },
+//     {
+//         storeId: "S002",
+//         storeName: "Vendor Store 02",
+//         storeType: "Vendor",
+//         deliveryAgents: ["Agent Three"],
+//         totalTasksCompleted: 10,
+//         totalCOD: 1500,
+//         totalOnline: 1200,
+//     },
+// ];
+
 
 const StoreWiseReportScreen = () => {
     const navigate = useNavigate();
-
+    const { storesDetails } = useSelector(state => state.storesDetailsTypes);
     const handleDetailsClick = (store) => {
         navigate("./store-details", { state: { store } });
     };
@@ -45,11 +47,12 @@ const StoreWiseReportScreen = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {storeData.map((store) => (
-                        <tr key={store.storeId}>
-                            <td>{store.storeId}</td>
-                            <td>{store.storeName}</td>
-                            <td>{store.storeType}</td>
+                    {storesDetails.map((store) => (
+                        <tr key={storesDetails.id}>
+                            {console.log("store", store)}
+                            <td>{store.id}</td>
+                            <td>{store.name}</td>
+                            <td>{store.type}</td>
                             <td>{store.deliveryAgents.length}</td>
                             <td>
                                 <button
