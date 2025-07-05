@@ -34,6 +34,7 @@ const AgentsComponent = (props) => {
                 <table className="agentscomponent-agent-table">
                     <thead>
                         <tr>
+                            <th>Agent Id</th>
                             <th>Agent Name</th>
                             <th>Store Name</th>
                             <th>Type</th>
@@ -44,6 +45,7 @@ const AgentsComponent = (props) => {
                     <tbody>
                         {agentsData.map((agent) => (
                             <tr key={agent.id}>
+                                <td>{agent.id}</td>
                                 <td>{agent.name}</td>
                                 <td>{agent.storeName}</td>
                                 <td>{agent.type}</td>
