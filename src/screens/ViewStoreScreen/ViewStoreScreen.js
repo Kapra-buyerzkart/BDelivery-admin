@@ -255,7 +255,7 @@ const ViewStoreScreen = () => {
                     <label className="viewstore-label">Store ID:</label>
                     <div className="viewstore-input-or-value">
                         <input
-                            type="number"
+                            type="text"
                             name="id"
                             value={editData.id || ''}
                             onChange={handleInputChange}
