@@ -207,7 +207,7 @@ const ViewProfileScreen = () => {
                     <label className="viewprofile-label">Agent ID:</label>
                     <div className="viewprofile-input-or-value">
                         <input
-                            type="number"
+                            type="text"
                             name="id"
                             value={editData.id || ''}
                             onChange={handleInputChange}
