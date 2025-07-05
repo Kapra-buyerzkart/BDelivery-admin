@@ -7,7 +7,7 @@ const AgentWiseReportScreen = () => {
     const navigate = useNavigate();
     const { agentsData } = useSelector(state => state.agents);
     const handleDetailsClick = (agent) => {
-        navigate("/agent-details", { state: { agent } });
+        navigate("/dashboard/reports/agentwise-report/agent-details", { state: { agent } });
     };
 
     return (
@@ -23,6 +23,7 @@ const AgentWiseReportScreen = () => {
                         <th>Completed Tasks</th>
                         <th>Total Earnings (₹)</th>
                         <th>Total Kilometers</th>
+                        <th>Details</th>
                         {/* <th>Details</th> */}
                     </tr>
                 </thead>
@@ -36,14 +37,14 @@ const AgentWiseReportScreen = () => {
                             <td>{agent.completedOrdersCount}</td>
                             <td>{agent.totalEarnings}</td>
                             <td>{agent.distanceCovered}</td>
-                            {/* <td>
+                            <td>
                                 <button
                                     className="details-button"
                                     onClick={() => handleDetailsClick(agent)}
                                 >
                                     View
                                 </button>
-                            </td> */}
+                            </td>
                         </tr>
                     ))}
                 </tbody>

@@ -49,7 +49,7 @@ const StoreWiseReportScreen = () => {
                 <tbody>
                     {storesDetails.map((store) => (
                         <tr key={storesDetails.id}>
-                            {console.log("store", store)}
+                            {/* {console.log("store", store)} */}
                             <td>{store.id}</td>
                             <td>{store.name}</td>
                             <td>{store.type}</td>

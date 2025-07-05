@@ -5,7 +5,7 @@ import "./StoreDetailsScreen.css";
 const StoreDetailsScreen = () => {
     const location = useLocation();
     const store = location.state?.store;
-    console.log(".>>>>>", store)
+    // console.log(".>>>>>", store)
 
     if (!store) {
         return <div className="storedetails-container">No store data found.</div>;

@@ -6,10 +6,51 @@
     overflow-y: auto;
 }
 
+/* Heading */
 h2 {
     margin-bottom: 20px;
 }
 
+/* Filters */
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.filters-container select,
+.filters-container input[type="date"] {
+    padding: 8px 12px;
+    padding-right: 24px;
+    /* Extra space for the dropdown arrow */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    min-width: 150px;
+    background-color: white;
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: 12px;
+}
+
+/* Optional: Custom down arrow for select */
+.filters-container select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+}
+
+.filters-container select:focus,
+.filters-container input[type="date"]:focus {
+    outline: none;
+    border-color: #11998e;
+    box-shadow: 0 0 4px rgba(17, 153, 142, 0.5);
+}
+
+/* Table */
 .tasks-table {
     width: 100%;
     border-collapse: collapse;
@@ -31,6 +72,7 @@ h2 {
     background-color: #f9f9f9;
 }
 
+/* Button */
 .details-button {
     background-color: #11998e;
     color: white;
@@ -44,4 +86,58 @@ h2 {
 
 .details-button:hover {
     background-color: #0e8075;
+}
+
+.export-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.export-button:hover {
+    background-color: #388e3c;
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.page-button {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.page-button.active {
+    background-color: #11998e;
+    color: white;
+    border-color: #11998e;
+}
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-container input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 250px;
+}
+
+.search-container input:focus {
+    outline: none;
+    border-color: #11998e;
+    box-shadow: 0 0 4px rgba(17, 153, 142, 0.5);
 }
