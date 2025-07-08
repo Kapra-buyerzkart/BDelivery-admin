@@ -35,7 +35,7 @@ const StoreWiseReportScreen = () => {
 
     return (
         <div className="storewise-container">
-            <h2>Storewise Report</h2>
+            <h2>Store Wise Report</h2>
             <table className="storewise-table">
                 <thead>
                     <tr>

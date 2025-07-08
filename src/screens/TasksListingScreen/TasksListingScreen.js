@@ -25,7 +25,7 @@ const TasksListingScreen = () => {
         const csvData = filteredTasks.map((task) => ({
             TaskNo: task.taskNo,
             CustomerName: task.customerName,
-            DeliveryAgent: task.agentName,
+            DeliveryAgent: task.deliveryAgent,
             StoreName: task.microStoreName,
             Date: task.date,
         }));
@@ -47,7 +47,7 @@ const TasksListingScreen = () => {
             storeFilter ? task.microStoreName === storeFilter : true
         )
         .filter((task) =>
-            agentFilter ? task.agentName === agentFilter : true
+            agentFilter ? task.deliveryAgent === agentFilter : true
         )
         .filter((task) => {
             if (startDate && endDate) {
@@ -80,7 +80,7 @@ const TasksListingScreen = () => {
         });
 
     const uniqueStores = [...new Set(completedTasks.map((t) => t.microStoreName))];
-    const uniqueAgents = [...new Set(completedTasks.map((t) => t.agentName))];
+    const uniqueAgents = [...new Set(completedTasks.map((t) => t.deliveryAgent))];
 
     const totalPages = Math.ceil(filteredTasks.length / itemsPerPage);
     const paginatedTasks = filteredTasks.slice(
@@ -155,7 +155,7 @@ const TasksListingScreen = () => {
                         <tr key={task.id}>
                             <td>{task.taskNo}</td>
                             <td>{task.customerName}</td>
-                            <td>{task.agentName}</td>
+                            <td>{task.deliveryAgent}</td>
                             <td>{task.microStoreName}</td>
                             <td>{task.date}</td>
                             <td>
