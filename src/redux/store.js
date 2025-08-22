@@ -6,6 +6,8 @@ import taskReducer from './slices/taskSlice';
 import agentReducer from './slices/agentSlice';
 import typesStoreNamesReducer from './slices/storesDetailsTypes';
 import storesDetailsTypesReducer from './slices/storesDetailsTypes';
+import holidaysReducer from './slices/holidaysSlice';
+import incentivesReducer from './slices/incentivesSlice';
 
 const persistConfig = {
     key: 'root',
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
     agents: agentReducer,
     typesStoreNames: typesStoreNamesReducer,
     storesDetailsTypes: storesDetailsTypesReducer,
+    holidays: holidaysReducer,
+    incentives: incentivesReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

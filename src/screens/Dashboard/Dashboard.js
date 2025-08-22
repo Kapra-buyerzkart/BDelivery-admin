@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAgents } from "../../redux/slices/agentSlice";
 import { fetchCompletedTasks } from "../../redux/slices/taskSlice";
 import { fetchStoresDetailsTypes } from "../../redux/slices/storesDetailsTypes";
+import { fetchHolidays } from "../../redux/slices/holidaysSlice";
+import { fetchIncentives } from "../../redux/slices/incentivesSlice";
 
 const Dashboard = (props) => {
     const [activeSection, setActiveSection] = useState("Agents");
@@ -17,7 +19,7 @@ const Dashboard = (props) => {
     // const [storeNames, setStoreNames] = useState([]);
     // const [types, setTypes] = useState([]);
 
-    const sections = ["Agents", "Stores", "Reports"];
+    const sections = ["Agents", "Stores", "Reports", "Holidays", "Incentives"];
     // const tasksData = [
     //     {
     //         amount: 250,
@@ -125,6 +127,8 @@ const Dashboard = (props) => {
         dispatch(fetchAgents())
         dispatch(fetchCompletedTasks())
         dispatch(fetchStoresDetailsTypes())
+        dispatch(fetchHolidays())
+        dispatch(fetchIncentives())
     }, [])
 
     const { agentLoading } = useSelector(state => state.agents);
@@ -257,8 +261,8 @@ const Dashboard = (props) => {
                         // agentsData={agentsData}
                         activeSection={activeSection}
                         props={props}
-                        // storeNames={storeNames}
-                        // types={types}
+                    // storeNames={storeNames}
+                    // types={types}
                     // tasksData={completedTasks}
                     />
                 </div>

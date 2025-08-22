@@ -1,0 +1,174 @@
+.incentivescomponent-content {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+}
+
+.incentivescomponent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.incentivescomponent-save-btn {
+    background-color: #11998e;
+    color: white;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.incentivescomponent-save-btn:hover {
+    background-color: #0e8075;
+}
+
+.incentivescomponent-section-title {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #222;
+    font-size: 18px;
+}
+
+.incentivescomponent-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background: white;
+}
+
+.incentivescomponent-table th,
+.incentivescomponent-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.incentivescomponent-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+.incentivescomponent-table tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.incentivescomponent-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.incentivescomponent-currency {
+    position: absolute;
+    left: 10px;
+    font-size: 14px;
+    color: #555;
+    pointer-events: none;
+}
+
+.incentivescomponent-input {
+    padding: 8px 10px;
+    padding-left: 25px;
+    /* space for ₹ symbol */
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.incentivescomponent-empty {
+    text-align: center !important;
+    padding: 20px;
+    color: #888;
+}
+
+.incentivescomponent-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.incentivescomponent-add-btn {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.incentivescomponent-delete-btn {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.incentivescomponent-add-btn:hover {
+    background-color: #218838;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.modal h3 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.modal button {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: 600;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+
+    .incentivescomponent-table th,
+    .incentivescomponent-table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .incentivescomponent-input {
+        font-size: 13px;
+        padding: 6px 8px;
+        padding-left: 22px;
+    }
+}

@@ -369,6 +369,32 @@ const ViewStoreScreen = () => {
                     </div>
                 </div>
 
+                <div className="viewstore-field">
+                    <label className="viewstore-label">Latitude:</label>
+                    <div className="viewstore-input-or-value">
+                        <input
+                            type="number"
+                            name="completedOrdersCount"
+                            value={editData.latitude || 0}
+                            className="viewstore-input"
+                            disabled={true}
+                        />
+                    </div>
+                </div>
+
+                <div className="viewstore-field">
+                    <label className="viewstore-label">Longitude:</label>
+                    <div className="viewstore-input-or-value">
+                        <input
+                            type="number"
+                            name="completedOrdersCount"
+                            value={editData.longitude || 0}
+                            className="viewstore-input"
+                            disabled={true}
+                        />
+                    </div>
+                </div>
+
                 {/* <div className="viewstore-field">
                     <label className="viewstore-label">Total Earnings:</label>
                     <div className="viewstore-input-or-value">
@@ -391,7 +417,7 @@ const ViewStoreScreen = () => {
                     ) : (
                         <>
                             <button className="viewstore-button viewstore-primary" onClick={handleEditToggle}>Edit Profile</button>
-                            <button className="viewstore-button viewstore-danger" onClick={() => setIsDeleteModalOpen(true)}>Delete Profile</button>
+                            <button className="viewstore-button viewstore-danger" onClick={() => setIsDeleteModalOpen(true)}>Delete Store</button>
                         </>
                     )}
                 </div>

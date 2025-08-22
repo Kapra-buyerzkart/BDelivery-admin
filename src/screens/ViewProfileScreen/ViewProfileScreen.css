@@ -52,6 +52,7 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
+    color: black;
 }
 
 .viewprofile-input:disabled {
@@ -75,6 +76,7 @@
     font-size: 1rem;
     background-color: white;
     cursor: pointer;
+    color: black;
 }
 
 .viewprofile-dropdown:disabled {
@@ -230,7 +232,7 @@
 .viewprofile-duty-indicator {
     display: flex;
     align-items: center;
-    justify-content:flex-end;
+    justify-content: flex-end;
     margin-bottom: 1rem;
     /* background-color: #c82333; */
 }

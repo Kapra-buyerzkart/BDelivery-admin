@@ -1,0 +1,100 @@
+.earnings-container {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #11998e;
+    padding: 10px 16px;
+    color: white;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.placeholder {
+    width: 24px;
+}
+
+.content-container {
+    padding: 16px;
+}
+
+.card {
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.save-btn {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #11998e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.save-btn:hover {
+    background-color: #0e7c74;
+}
+
+.card p {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.card span {
+    font-weight: bold;
+    color: #11998e;
+}
+
+.highlight-week {
+    background-color: #4caf50 !important;
+    color: white !important;
+    border-radius: 0;
+    /* full rectangle */
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 12px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+
+    .header-title {
+        font-size: 14px;
+    }
+}

@@ -1,3 +1,4 @@
+/* Container */
 .addstore-container {
     display: flex;
     flex-direction: column;
@@ -8,6 +9,7 @@
     background-color: #11998e;
 }
 
+/* Form */
 .addstore-form {
     background: white;
     padding: 2rem;
@@ -21,6 +23,7 @@
     max-width: 500px;
 }
 
+/* Header */
 .addstore-header {
     font-size: 1.8rem;
     color: #333;
@@ -28,6 +31,7 @@
     text-align: center;
 }
 
+/* Inputs and Selects */
 .addstore-form input,
 .addstore-form select {
     width: 100%;
@@ -38,14 +42,38 @@
     box-sizing: border-box;
 }
 
-/* Dropdown responsive improvements */
+/* Enhanced Dropdown Styling */
 .addstore-form select {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
+    padding-right: 2.5rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.65rem;
+    cursor: pointer;
+    color: #000;
 }
 
-/* Adjusted button and input for smaller devices */
+.addstore-form input::placeholder,
+select {
+    color: #888;
+}
+
+.addstore-form select.placeholder {
+    color: #888;
+    /* Light gray for placeholder */
+}
+
+.addstore-form select option {
+    color: #000;
+    /* default option text color */
+    background-color: #fff;
+}
+
+/* Button */
 .addstore-form button {
     background: #228b22;
     color: #ffffff;
@@ -65,7 +93,7 @@
     background: #1a6e1a;
 }
 
-/* Modal Styles */
+/* Modal */
 .addstore-modal {
     position: fixed;
     top: 0;
@@ -101,7 +129,6 @@
 /* Success Modal */
 .addstore-modal .success-modal h3 {
     color: #228b22;
-    /* Green color for success */
 }
 
 .addstore-modal .success-modal p {
@@ -112,7 +139,6 @@
 /* Alert Modal */
 .addstore-modal .alert-modal h3 {
     color: #ff5733;
-    /* Red color for alert */
 }
 
 .addstore-modal .alert-modal p {
@@ -128,10 +154,9 @@
 
 .addstore-modal>div h3.addagent-modal-success {
     color: #228B22;
-    /* Green for Success */
 }
 
-/* Media Queries for Smaller Devices */
+/* Media Queries */
 @media (max-width: 768px) {
     .addstore-form {
         padding: 1.5rem;
@@ -143,11 +168,6 @@
     }
 
     .addstore-form input,
-    .addstore-form select {
-        padding: 0.8rem;
-        font-size: 0.9rem;
-    }
-
     .addstore-form select {
         padding: 0.8rem;
         font-size: 0.9rem;
@@ -170,11 +190,6 @@
     }
 
     .addstore-form input,
-    .addstore-form select {
-        padding: 0.75rem;
-        font-size: 0.85rem;
-    }
-
     .addstore-form select {
         padding: 0.75rem;
         font-size: 0.85rem;

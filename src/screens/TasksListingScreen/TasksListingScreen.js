@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const TasksListingScreen = () => {
     const navigate = useNavigate();
     const { completedTasks } = useSelector((state) => state.tasks);
-
+    const { agentsData } = useSelector(state => state.agents);
     const [storeFilter, setStoreFilter] = useState("");
     const [agentFilter, setAgentFilter] = useState("");
     const [startDate, setStartDate] = useState("");
@@ -61,12 +61,11 @@ const TasksListingScreen = () => {
         })
         .filter((task) =>
             searchQuery
-                ? task.customerName
-                    ?.toLowerCase()
-                    .includes(searchQuery.toLowerCase())
+                ? Object.values(task).some((value) =>
+                    String(value).toLowerCase().includes(searchQuery.toLowerCase())
+                )
                 : true
-        )
-        .sort((a, b) => {
+        ).sort((a, b) => {
             if (sortField === "date") {
                 return sortOrder === "asc"
                     ? new Date(a.date) - new Date(b.date)
@@ -79,8 +78,10 @@ const TasksListingScreen = () => {
             return 0;
         });
 
-    const uniqueStores = [...new Set(completedTasks.map((t) => t.microStoreName))];
+    // const uniqueStores = [...new Set(completedTasks.map((t) => t.microStoreName))];
     const uniqueAgents = [...new Set(completedTasks.map((t) => t.deliveryAgent))];
+
+    const { storesDetails } = useSelector(state => state.storesDetailsTypes);
 
     const totalPages = Math.ceil(filteredTasks.length / itemsPerPage);
     const paginatedTasks = filteredTasks.slice(
@@ -94,36 +95,63 @@ const TasksListingScreen = () => {
 
             {/* Filters */}
             <div className="filters-container">
-                <select value={storeFilter} onChange={(e) => setStoreFilter(e.target.value)}>
-                    <option value="">All Stores</option>
-                    {uniqueStores.map((store, index) => (
-                        <option key={index} value={store}>
-                            {store}
-                        </option>
-                    ))}
-                </select>
+                <div className="filter-group">
+                    <label>Select Store</label>
+                    <select value={storeFilter} onChange={(e) => setStoreFilter(e.target.value)}>
+                        <option value="">All Stores</option>
+                        {storesDetails.map((store, index) => (
+                            <option key={store.id} value={store.name}>
+                                {store.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
-                <select value={agentFilter} onChange={(e) => setAgentFilter(e.target.value)}>
-                    <option value="">All Agents</option>
-                    {uniqueAgents.map((agent, index) => (
-                        <option key={index} value={agent}>
-                            {agent}
-                        </option>
-                    ))}
-                </select>
+                <div className="filter-group">
+                    <label>Select Agent</label>
+                    <select value={agentFilter} onChange={(e) => setAgentFilter(e.target.value)}>
+                        <option value="">All Agents</option>
+                        {agentsData.map((agent, index) => (
+                            <option key={agent.id} value={agent.name}>
+                                {agent.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
-                <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-                <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+                <div className="filter-group">
+                    <label>From Date</label>
+                    <input
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                    />
+                </div>
 
-                <select value={sortField} onChange={(e) => setSortField(e.target.value)}>
-                    <option value="date">Sort by Date</option>
-                    <option value="taskNo">Sort by Task No</option>
-                </select>
+                <div className="filter-group">
+                    <label>End Date</label>
+                    <input
+                        type="date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                    />
+                </div>
 
-                <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
-                    <option value="desc">Descending</option>
-                    <option value="asc">Ascending</option>
-                </select>
+                <div className="filter-group">
+                    <label>Sort By</label>
+                    <select value={sortField} onChange={(e) => setSortField(e.target.value)}>
+                        <option value="date">Sort by Date</option>
+                        <option value="taskNo">Sort by Task No</option>
+                    </select>
+                </div>
+
+                <div className="filter-group">
+                    <label>Order</label>
+                    <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                        <option value="desc">Descending</option>
+                        <option value="asc">Ascending</option>
+                    </select>
+                </div>
 
                 <button className="export-button" onClick={handleExportCSV}>
                     Export CSV
@@ -133,7 +161,7 @@ const TasksListingScreen = () => {
             <div className="search-container">
                 <input
                     type="text"
-                    placeholder="Search by Customer Name"
+                    placeholder="Search"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -151,23 +179,30 @@ const TasksListingScreen = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {paginatedTasks.map((task) => (
-                        <tr key={task.id}>
-                            <td>{task.taskNo}</td>
-                            <td>{task.customerName}</td>
-                            <td>{task.deliveryAgent}</td>
-                            <td>{task.microStoreName}</td>
-                            <td>{task.date}</td>
-                            <td>
-                                <button
-                                    className="details-button"
-                                    onClick={() => handleDetailsClick(task)}
-                                >
-                                    View
-                                </button>
+                    {paginatedTasks.length === 0 ? (
+                        <tr>
+                            <td colSpan="6">
+                                <div className="no-tasks-message-flex">No tasks found.</div>
                             </td>
-                        </tr>
-                    ))}
+                        </tr>) : (
+                        paginatedTasks.map((task) => (
+                            <tr key={task.id}>
+                                <td>{task.taskNo}</td>
+                                <td>{task.customerName}</td>
+                                <td>{task.deliveryAgent}</td>
+                                <td>{task.microStoreName}</td>
+                                <td>{task.date}</td>
+                                <td>
+                                    <button
+                                        className="details-button"
+                                        onClick={() => handleDetailsClick(task)}
+                                    >
+                                        View
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </table>
 

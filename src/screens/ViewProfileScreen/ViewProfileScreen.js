@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/firebaseConfig';
-import { doc, setDoc, deleteDoc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { doc, setDoc, deleteDoc, getDoc, collection, query, where, getDocs, updateDoc, arrayRemove } from 'firebase/firestore';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './ViewProfileScreen.css';
 import { useSelector } from 'react-redux';
@@ -162,21 +162,52 @@ const ViewProfileScreen = () => {
 
     const handleDelete = async () => {
         const id = location.state?.agent?.id;
+        const storeId = location.state?.agent?.storeId;
+        const agentName = location.state?.agent?.name;
 
-        if (!id) {
-            console.error('id is missing.');
+        if (!id || !storeId) {
+            console.error("id or storeId is missing.");
             return;
         }
 
         try {
-            await deleteDoc(doc(db, 'deliveryAgents', id));
-            setModalMessage('Profile deleted successfully!');
+            // 1. Delete from deliveryAgents collection
+            await deleteDoc(doc(db, "deliveryAgents", id));
+
+            // 2. Get the stores/stores document
+            const storesRef = doc(db, "stores", "stores");
+            const storesSnap = await getDoc(storesRef);
+
+            if (storesSnap.exists()) {
+                let storesData = storesSnap.data().stores || [];
+
+                // 3. Update the deliveryAgents array for the matching store
+                storesData = storesData.map(store => {
+                    if (store.id === storeId) {
+                        return {
+                            ...store,
+                            deliveryAgents: store.deliveryAgents
+                                ? store.deliveryAgents.filter(agent => agent.id !== id)
+                                : [],
+                            deliveryAgentsCount: store.deliveryAgentsCount > 0
+                                ? store.deliveryAgentsCount - 1
+                                : 0, // avoid negative values                          
+                        };
+                    }
+                    return store;
+                });
+
+                // 4. Save updated stores array back
+                await updateDoc(storesRef, { stores: storesData });
+            }
+
+            setModalMessage("Profile deleted successfully!");
             setIsModalOpen(true);
             setIsDeleteModalOpen(false);
-            navigate('/dashboard');
+            navigate("/dashboard");
         } catch (error) {
-            console.error('Error deleting profile:', error);
-            setModalMessage('Failed to delete profile. Please try again.');
+            console.error("Error deleting profile:", error);
+            setModalMessage("Failed to delete profile. Please try again.");
             setIsModalOpen(true);
         }
     };

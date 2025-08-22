@@ -22,7 +22,9 @@ export const fetchAgents = createAsyncThunk('agents/fetchAgents', async () => {
             completedOrdersCount: completedOrders.length,
             distanceCovered: totalDistanceCovered,
             onDuty: data.onDuty,
-            storeId: data.storeId
+            storeId: data.storeId,
+            referralBonus: data.referralBonus,
+            joiningBonus: data.joiningBonus
         };
     });
 });

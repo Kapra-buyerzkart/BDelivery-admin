@@ -23,6 +23,8 @@ const AddStoreScreen = () => {
     const [modalMessage, setModalMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [storeId, setStoreId] = useState('');
+    const [latitude, setLatitude] = useState('');
+    const [longitude, setLongitude] = useState('');
     const navigate = useNavigate();
 
     // useEffect(() => {
@@ -73,7 +75,10 @@ const AddStoreScreen = () => {
                 // storeId,
                 type: selectedType,
                 completedTasks: [],
-                deliveryAgents: []
+                deliveryAgents: [],
+                numberOfDeliveryAgents: 0,
+                latitude: latitude,
+                longitude: longitude
                 // onDuty: onDuty,
                 // distanceCovered: distanceCovered
             };
@@ -141,10 +146,12 @@ const AddStoreScreen = () => {
                     <option value="">Select Store Name</option>
                     {storeNames.map((store) => <option key={store.id} value={store.name}>{store.name}</option>)}
                 </select> */}
-                <select value={selectedType} onChange={(e) => setSelectedType(e.target.value)} >
+                <select className={selectedType === '' ? 'placeholder' : ''} value={selectedType} onChange={(e) => setSelectedType(e.target.value)} >
                     <option value="">Select Type</option>
                     {storeTypes.map((type) => <option key={type} value={type}>{type}</option>)}
                 </select>
+                <input type="text" placeholder="Latitude" value={latitude} onChange={(e) => setLatitude(e.target.value)} required />
+                <input type="text" placeholder="Longitude" value={longitude} onChange={(e) => setLongitude(e.target.value)} required />
                 <button type="submit" disabled={isLoading}>{isLoading ? 'Saving...' : 'Save Store'}</button>
             </form>
 

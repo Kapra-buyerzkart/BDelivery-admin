@@ -13,6 +13,7 @@ import StoreDetailsScreen from '../screens/StoreDetailsScreen/StoreDetailsScreen
 import ViewStoreScreen from '../screens/ViewStoreScreen/ViewStoreScreen';
 import AddStoreScreen from '../screens/AddStoreScreen/AddStoreScreen';
 import AgentDetailsScreen from '../screens/AgentDetailsScreen/AgentDetailsScreen';
+import ViewEarningsScreen from '../screens/ViewEarningsScreen/ViewEarningsScreen';
 
 const
     AppRoutes = () => {
@@ -54,6 +55,7 @@ const
                     <Route path='/dashboard/reports/agents-listing' element={<ActiveAgentListingScreen />} />
                     <Route path='/dashboard/reports/agentwise-report' element={<AgentWiseReportScreen />} />
                     <Route path='/dashboard/reports/storewise-report' element={<StorewiseReport />} />
+                    <Route path='/dashboard/reports/agentwise-report/view-earnings' element={<ViewEarningsScreen />} />
                     <Route path='/dashboard/reports/agentwise-report/agent-details' element={<AgentDetailsScreen />} />
                     <Route path='/dashboard/reports/storewise-report/store-details' element={<StoreDetailsScreen />} />
                 </Routes>

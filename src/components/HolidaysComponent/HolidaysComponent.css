@@ -1,0 +1,142 @@
+    .holidayscomponent-content {
+        flex: 1;
+        padding: 20px;
+        background-color: white;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        overflow: auto;
+    }
+
+    .holidayscomponent-holidays-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .holidayscomponent-form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .holidayscomponent-input {
+        padding: 10px 12px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        min-width: 200px;
+    }
+
+    .holidayscomponent-empty {
+        text-align: center !important;
+        padding: 20px;
+    }
+
+    .holidayscomponent-add-holiday {
+        margin-top: 20px;
+        background-color: #11998e;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .holidayscomponent-holiday-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    .holidayscomponent-holiday-table th,
+    .holidayscomponent-holiday-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-size: 16px;
+    }
+
+    .holidayscomponent-holiday-table th {
+        background-color: #11998e;
+        color: white;
+        font-weight: bold;
+    }
+
+    .holidayscomponent-holiday-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .holidayscomponent-holiday-table td button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .holidayscomponent-holiday-table td button:hover {
+        background-color: #0056b3;
+    }
+
+    .holidayscomponent-delete-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .holidayscomponent-delete-btn:hover {
+        background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+        .holidayscomponent-content {
+            width: 100%;
+        }
+
+        .holidayscomponent-holiday-table {
+            font-size: 14px;
+        }
+
+        .holidayscomponent-holiday-table th,
+        .holidayscomponent-holiday-table td {
+            padding: 8px;
+        }
+
+        .holidayscomponent-holiday-table td button {
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 480px) {
+
+        .holidayscomponent-add-holiday,
+        .holidayscomponent-delete-btn {
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .holidayscomponent-holiday-table th,
+        .holidayscomponent-holiday-table td {
+            padding: 6px;
+            font-size: 12px;
+        }
+
+        .holidayscomponent-holiday-table td button {
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+    }

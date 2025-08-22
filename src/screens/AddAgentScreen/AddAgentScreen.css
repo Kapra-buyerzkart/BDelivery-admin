@@ -1,3 +1,4 @@
+/* Container */
 .addagent-container {
     display: flex;
     flex-direction: column;
@@ -8,6 +9,7 @@
     background-color: #11998e;
 }
 
+/* Form */
 .addagent-form {
     background: white;
     padding: 2rem;
@@ -21,6 +23,7 @@
     max-width: 500px;
 }
 
+/* Header */
 .addagent-header {
     font-size: 1.8rem;
     color: #333;
@@ -28,6 +31,7 @@
     text-align: center;
 }
 
+/* Input + Select */
 .addagent-form input,
 .addagent-form select {
     width: 100%;
@@ -38,14 +42,38 @@
     box-sizing: border-box;
 }
 
-/* Dropdown responsive improvements */
+/* Enhanced Dropdown Styling */
 .addagent-form select {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
+    padding-right: 2.5rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.65rem;
+    cursor: pointer;
+    color: #000;
 }
 
-/* Adjusted button and input for smaller devices */
+.addagent-form input::placeholder,
+select:invalid {
+    color: #888;
+}
+
+.addagent-form select option {
+    color: #000;
+    /* default option text color */
+    background-color: #fff;
+}
+
+.addstore-form select.placeholder {
+    color: #888;
+    /* Light gray for placeholder */
+}
+
+/* Button */
 .addagent-form button {
     background: #228b22;
     color: #ffffff;
@@ -101,7 +129,6 @@
 /* Success Modal */
 .addagent-modal .success-modal h3 {
     color: #228b22;
-    /* Green color for success */
 }
 
 .addagent-modal .success-modal p {
@@ -112,7 +139,6 @@
 /* Alert Modal */
 .addagent-modal .alert-modal h3 {
     color: #ff5733;
-    /* Red color for alert */
 }
 
 .addagent-modal .alert-modal p {
@@ -128,10 +154,9 @@
 
 .addagent-modal>div h3.addagent-modal-success {
     color: #228B22;
-    /* Green for Success */
 }
 
-/* Media Queries for Smaller Devices */
+/* Media Queries */
 @media (max-width: 768px) {
     .addagent-form {
         padding: 1.5rem;
@@ -143,11 +168,6 @@
     }
 
     .addagent-form input,
-    .addagent-form select {
-        padding: 0.8rem;
-        font-size: 0.9rem;
-    }
-
     .addagent-form select {
         padding: 0.8rem;
         font-size: 0.9rem;
@@ -170,11 +190,6 @@
     }
 
     .addagent-form input,
-    .addagent-form select {
-        padding: 0.75rem;
-        font-size: 0.85rem;
-    }
-
     .addagent-form select {
         padding: 0.75rem;
         font-size: 0.85rem;

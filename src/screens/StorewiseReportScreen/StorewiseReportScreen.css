@@ -6,6 +6,43 @@
     overflow-y: auto;
 }
 
+.storewise-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.storewise-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+}
+
+.csv-button {
+    background-color: #11998e;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.csv-button:hover {
+    background-color: #0e8075;
+}
+
+/* Table styles */
 .storewise-table {
     width: 100%;
     border-collapse: collapse;
@@ -27,17 +64,27 @@
     background-color: #f9f9f9;
 }
 
-.details-button {
-    background-color: #11998e;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s;
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.details-button:hover {
-    background-color: #0e8075;
+.page-button {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.page-button.active,
+.page-button:hover {
+    background-color: #11998e;
+    color: white;
+    border-color: #11998e;
 }

@@ -53,6 +53,9 @@ const ReportComponent = ({ totalTasks, totalAgents }) => {
                 <button className="report-button" onClick={handleStoreReport}>
                     Store Wise Report
                 </button>
+                {/* <button className="report-button" onClick={handleStoreReport}>
+                    Earnings Report
+                </button> */}
             </div>
         </main>
     );

@@ -6,6 +6,8 @@ import TaskComponent from "../TaskComponent/TaskComponent";
 import ReportComponent from "../ReportComponent/ReportComponent";
 import { useSelector } from "react-redux";
 import StoresComponent from "../StoreComponent/StoresComponent";
+import HolidaysComponent from "../HolidaysComponent/HolidaysComponent";
+import IncentivesComponent from "../IncentiveComponent/IncentivesComponent";
 
 const SectionComponent = (props) => {
     // const [activeSection, setActiveSection] = useState("Agents");
@@ -67,24 +69,21 @@ const SectionComponent = (props) => {
         //     )
         //     }
         // </main >
-        props.activeSection === "Agents" ? (<AgentsComponent
-            // agentsData={props.agentsData}
-            activeSection={props.activeSection}
-            props={props.props}
-        // storeNames={props.storeNames}
-        // types={props.types}
-        />
-        )
-            : props.activeSection === "Stores" ? (<StoresComponent
-            // tasksData={props.tasksData}
-            // activeSection={props.activeSection}
-            />)
-                : <ReportComponent
-                    // totalTasks={completedTasks.length}
-                    totalAgents={25}
-                    activeSection={props.activeSection}
-                />
-    )
+        props.activeSection === "Agents" ? (
+            <AgentsComponent
+                activeSection={props.activeSection}
+                props={props.props}
+            />
+        ) : props.activeSection === "Stores" ? (
+            <StoresComponent />
+        ) : props.activeSection === "Reports" ? (
+            <ReportComponent
+                totalAgents={25}
+                activeSection={props.activeSection}
+            />
+        ) : props.activeSection === "Holidays" ? (
+            <HolidaysComponent />
+        ) : <IncentivesComponent />);
 }
 
 export default SectionComponent;

@@ -75,6 +75,7 @@
     font-size: 1rem;
     background-color: white;
     cursor: pointer;
+    color: #000;
 }
 
 .viewstore-dropdown:disabled {
